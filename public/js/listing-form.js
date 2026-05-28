@@ -1,102 +1,212 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  if (!Auth.requireAuth()) return;
 
-  // Buyers cannot create listings
-  const me = await Auth.getProfile();
-  if (me?.account_type === 'buyer') {
-    document.body.innerHTML = `
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center;font-family:'Inter',sans-serif;background:#f3f5f4">
-        <div style="font-size:3rem;margin-bottom:16px">🛒</div>
-        <h2 style="font-size:1.35rem;font-weight:800;color:#111827;margin:0 0 10px">Buyers can't create listings</h2>
-        <p style="font-size:.9rem;color:#4b5563;max-width:360px;line-height:1.65;margin:0 0 24px">
-          Your account is registered as a buyer. To sell your skills, create a new account and select <strong>"Sell my skills"</strong> during registration.
-        </p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
-          <a href="/pages/browse.html" style="padding:11px 24px;background:#00C97F;color:#fff;border-radius:10px;font-weight:700;text-decoration:none;font-size:.9rem">Browse services</a>
-          <a href="/pages/dashboard.html" style="padding:11px 24px;background:#f3f5f4;color:#374151;border:1.5px solid #e5e7eb;border-radius:10px;font-weight:700;text-decoration:none;font-size:.9rem">Back to dashboard</a>
-        </div>
-      </div>`;
-    return;
-  }
+  (function() {
+    // DOM elements
+    const titleInput = document.getElementById('listingTitle');
+    const descInput = document.getElementById('listingDesc');
+    const categorySelect = document.getElementById('listingCategory');
+    const priceInput = document.getElementById('listingPrice');
+    const turnaroundInput = document.getElementById('turnaroundTime');
+    const submitBtn = document.getElementById('submitListingBtn');
+    const previewTitle = document.getElementById('previewTitle');
+    const previewCategory = document.getElementById('previewCategory');
+    const previewPrice = document.getElementById('previewPrice');
+    const previewTurnaround = document.getElementById('previewTurnaround');
+    
+    // Chip groups
+    const priceChips = document.querySelectorAll('#priceTypeGroup .chip');
+    const deliveryChips = document.querySelectorAll('#deliveryGroup .chip');
+    const priceTypeHidden = document.getElementById('priceTypeValue');
+    const deliveryHidden = document.getElementById('deliveryValue');
 
-  const form      = document.getElementById('listingForm');
-  const formMsg   = document.getElementById('formMsg');
-  const submitBtn = document.getElementById('submitBtn');
-  const catSelect = document.getElementById('category');
-  const imgInput  = document.getElementById('imageInput');
-  const previews  = document.getElementById('imagePreviews');
-  const uploadBtn = document.getElementById('imgUploadBtn');
+    // Image upload variables
+    let uploadedFiles = []; // store base64 or file objects for preview
+    const fileInput = document.getElementById('fileInput');
+    const uploadArea = document.getElementById('imageUploadArea');
+    const previewContainer = document.getElementById('imagePreviewContainer');
 
-  let selectedFiles = [];
-
-  // Populate categories
-  CATEGORIES.forEach((c) => {
-    catSelect.insertAdjacentHTML('beforeend', `<option value="${c.label}">${c.label}</option>`);
-  });
-
-  // Image preview handling
-  imgInput.addEventListener('change', () => {
-    const newFiles = Array.from(imgInput.files);
-    selectedFiles = [...selectedFiles, ...newFiles].slice(0, 5);
-    renderPreviews();
-  });
-
-  const renderPreviews = () => {
-    // Remove old previews (keep the upload button)
-    previews.querySelectorAll('.img-preview-item').forEach(el => el.remove());
-    selectedFiles.forEach((file, i) => {
-      const url = URL.createObjectURL(file);
-      const div = document.createElement('div');
-      div.className = 'img-preview-item';
-      div.style.cssText = 'position:relative;width:80px;height:80px;border-radius:8px;overflow:hidden;border:1px solid var(--border)';
-      div.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover">
-        <button type="button" style="position:absolute;top:3px;right:3px;background:rgba(0,0,0,.7);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center" data-idx="${i}">✕</button>`;
-      div.querySelector('button').addEventListener('click', () => {
-        selectedFiles.splice(i, 1);
-        renderPreviews();
-      });
-      previews.insertBefore(div, uploadBtn);
-    });
-  };
-
-  const showMsg = (msg, type) => {
-    formMsg.textContent   = msg;
-    formMsg.className     = `form-msg ${type}`;
-    formMsg.style.display = 'block';
-  };
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    formMsg.style.display = 'none';
-    submitBtn.disabled = true;
-    submitBtn.classList.add('loading');
-
-    try {
-      const fd = new FormData();
-      fd.append('title',           document.getElementById('title').value.trim());
-      fd.append('description',     document.getElementById('description').value.trim());
-      fd.append('category',        catSelect.value);
-      fd.append('price_type',      document.getElementById('price_type').value);
-      fd.append('delivery_method', document.getElementById('delivery_method').value);
-      fd.append('turnaround_time', document.getElementById('turnaround_time').value.trim());
-
-      const price = document.getElementById('price').value;
-      if (price) fd.append('price', price);
-
-      fd.append('availability', document.getElementById('isAvailable').checked ? 'true' : 'false');
-
-      selectedFiles.forEach((f) => fd.append('images', f));
-
-      const { listing } = await api.upload('/api/listings', fd);
-      showMsg('Listing published!', 'success');
-      form.reset();
-      selectedFiles = [];
-      renderPreviews();
-      setTimeout(() => { window.location.href = `/pages/listing.html?id=${listing.id}`; }, 1000);
-    } catch (err) {
-      showMsg(err.message, 'error');
-      submitBtn.disabled = false;
-      submitBtn.classList.remove('loading');
+    // Live preview updates
+    function updatePreview() {
+      previewTitle.textContent = titleInput.value.trim() || 'Your listing title';
+      previewCategory.textContent = categorySelect.options[categorySelect.selectedIndex]?.text || 'Category';
+      
+      const priceType = priceTypeHidden.value;
+      const priceVal = priceInput.value.trim();
+      if (priceType === 'fixed' && priceVal) {
+        previewPrice.textContent = `R ${parseInt(priceVal).toLocaleString()}`;
+      } else if (priceType === 'quote') {
+        previewPrice.textContent = 'Quote / Negotiable';
+      } else {
+        previewPrice.textContent = '—';
+      }
+      
+      const turnaround = turnaroundInput.value.trim();
+      previewTurnaround.textContent = turnaround ? `⏱️ ${turnaround}` : '';
     }
-  });
-});
+
+    titleInput.addEventListener('input', updatePreview);
+    categorySelect.addEventListener('change', updatePreview);
+    priceInput.addEventListener('input', updatePreview);
+    turnaroundInput.addEventListener('input', updatePreview);
+
+    // Chip handlers for price type
+    priceChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        priceChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const value = chip.getAttribute('data-value');
+        priceTypeHidden.value = value;
+        updatePreview();
+        if (value === 'quote') {
+          priceInput.placeholder = 'Leave blank for quote';
+          priceInput.value = '';
+        } else {
+          priceInput.placeholder = 'e.g. 250';
+        }
+      });
+    });
+
+    // Chip handlers for delivery method
+    deliveryChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        deliveryChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        deliveryHidden.value = chip.getAttribute('data-value');
+      });
+    });
+
+    // Image upload handling
+    uploadArea.addEventListener('click', () => fileInput.click());
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#f97316';
+    });
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.style.borderColor = 'rgba(249,115,22,0.3)';
+    });
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = 'rgba(249,115,22,0.3)';
+      const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+      handleImageFiles(files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
+      handleImageFiles(files);
+      fileInput.value = '';
+    });
+
+    function handleImageFiles(files) {
+      const remainingSlots = 5 - uploadedFiles.length;
+      const toAdd = files.slice(0, remainingSlots);
+      toAdd.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          uploadedFiles.push({ data: e.target.result, file: file });
+          renderImagePreviews();
+        };
+        reader.readAsDataURL(file);
+      });
+      if (toAdd.length < files.length) {
+        alert('Maximum 5 images allowed.');
+      }
+    }
+
+    function renderImagePreviews() {
+      previewContainer.innerHTML = '';
+      uploadedFiles.forEach((img, idx) => {
+        const div = document.createElement('div');
+        div.className = 'preview-item';
+        div.innerHTML = `
+          <img src="${img.data}" alt="preview">
+          <div class="remove-image" data-index="${idx}"><i class="fas fa-times"></i></div>
+        `;
+        previewContainer.appendChild(div);
+      });
+      document.querySelectorAll('.remove-image').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const index = parseInt(btn.getAttribute('data-index'));
+          uploadedFiles.splice(index, 1);
+          renderImagePreviews();
+        });
+      });
+    }
+
+    // Form validation + submission
+    function validateForm() {
+      const title = titleInput.value.trim();
+      const description = descInput.value.trim();
+      const category = categorySelect.value;
+      const turnaround = turnaroundInput.value.trim();
+      const priceType = priceTypeHidden.value;
+      
+      if (!title) { alert('Please enter a title.'); titleInput.focus(); return false; }
+      if (!description) { alert('Please enter a description.'); descInput.focus(); return false; }
+      if (!category) { alert('Please select a category.'); categorySelect.focus(); return false; }
+      if (!turnaround) { alert('Please enter turnaround time.'); turnaroundInput.focus(); return false; }
+      
+      if (priceType === 'fixed') {
+        const price = priceInput.value.trim();
+        if (!price || isNaN(price) || parseFloat(price) <= 0) {
+          alert('Please enter a valid price (ZAR).');
+          priceInput.focus();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    submitBtn.addEventListener('click', () => {
+      if (!validateForm()) return;
+      
+      // Construct listing object (not hardcoded)
+      const listingData = {
+        id: 'lst_' + Date.now(),
+        title: titleInput.value.trim(),
+        description: descInput.value.trim(),
+        category: categorySelect.value,
+        price_type: priceTypeHidden.value,
+        price: priceTypeHidden.value === 'fixed' ? parseFloat(priceInput.value) : null,
+        delivery_method: deliveryHidden.value,
+        turnaround: turnaroundInput.value.trim(),
+        images: uploadedFiles.map(img => img.data), // base64 for demo
+        created_at: new Date().toISOString(),
+        status: 'active'
+      };
+      
+      // Simulate saving to localStorage / API
+      let existingListings = [];
+      try {
+        const stored = localStorage.getItem('cc_listings');
+        if (stored) existingListings = JSON.parse(stored);
+      } catch(e) {}
+      existingListings.unshift(listingData);
+      localStorage.setItem('cc_listings', JSON.stringify(existingListings));
+      
+      // Also store a flag for dashboard
+      localStorage.setItem('cc_last_listing', JSON.stringify(listingData));
+      
+      // Show success modal
+      const modal = document.getElementById('successModal');
+      modal.style.display = 'flex';
+      
+      // Optional: reset form lightly but keep preview
+      submitBtn.disabled = false;
+    });
+
+    // Close modal + redirect
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+      window.location.href = '/pages/dashboard.html';
+    });
+    document.getElementById('successModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('successModal')) {
+        window.location.href = '/pages/dashboard.html';
+      }
+    });
+
+    // Initialize preview
+    updatePreview();
+    
+    // Helper: set default price chip active already
+  })();
