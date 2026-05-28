@@ -14,10 +14,12 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.27.3",
     "@google/generative-ai": "^0.24.1",
-    "@supabase/supabase-js": "^2.49.8",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.19.2",
+    "@supabase/supabase-js": "^2.106.2",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "jsonwebtoken": "^9.0.3",
     "multer": "^1.4.5-lts.1",
     "nodemailer": "^8.0.7",
     "resend": "^6.12.3"
@@ -25,5 +27,17 @@
   "devDependencies": {
     "nodemon": "^3.1.4",
     "pg": "^8.21.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NobuhleDube09/WebWizards.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/NobuhleDube09/WebWizards/issues"
+  },
+  "homepage": "https://github.com/NobuhleDube09/WebWizards#readme"
 }

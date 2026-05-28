@@ -50,3 +50,6 @@ cloudinary.config
 .temp/
 *.tmp
 .vercel
+.env
+.env.local
+node_modules/

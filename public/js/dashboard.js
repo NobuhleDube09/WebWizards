@@ -1,3 +1,28 @@
+// Add these at the VERY TOP of /js/dashboard.js before everything else
+
+function starsHtml(rating) {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5;
+  let stars = '';
+  for (let i = 1; i <= 5; i++) {
+    if (i <= full) stars += '★';
+    else if (half && i === full + 1) stars += '½';
+    else stars += '☆';
+  }
+  return `<span class="stars">${stars}</span>`;
+}
+
+function formatRelTime(dateStr) {
+  if (!dateStr) return 'recently';
+  const date = new Date(dateStr);
+  const now = new Date();
+  const diff = Math.floor((now - date) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return date.toLocaleDateString();
+}
+
 /* ── Reusable confirm modal (replaces browser confirm/prompt) ──────────────── */
 function showConfirm(message, { confirmText = 'Confirm', danger = false } = {}) {
   return new Promise((resolve) => {

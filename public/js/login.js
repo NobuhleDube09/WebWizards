@@ -1,5 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
-  Auth.requireGuest();
+  // Show message if already logged in
+  if (Auth.isLoggedIn()) {
+    const formMsg = document.getElementById('formMsg');
+    if (formMsg) {
+      formMsg.textContent = 'You are already logged in! Redirecting to dashboard...';
+      formMsg.className = 'form-msg success';
+      formMsg.style.display = 'block';
+      setTimeout(() => {
+        window.location.href = '/pages/dashboard.html';
+      }, 2000);
+    }
+    return;
+  }
+  //Auth.requireGuest();
 
   const form      = document.getElementById('loginForm');
   const formMsg   = document.getElementById('formMsg');

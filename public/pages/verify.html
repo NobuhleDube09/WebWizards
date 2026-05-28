@@ -3,10 +3,10 @@
 <html lang="en">
 <head>
   <script>(function(){if(localStorage.getItem("cc_theme")==="dark")document.documentElement.setAttribute("data-theme","dark");}());</script>
-  <link rel="stylesheet" href="/css/dark.css">
+  <link rel="stylesheet" href="../css/dark.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/assets/campus_logo.svg" type="image/svg+xml">
+  <link rel="icon" href="../assets/campus_logo.svg" type="image/svg+xml">
   <title>Verify Email — CampusConnect</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
@@ -89,7 +89,7 @@ body::after{
       rgba(249,115,22,0.16),
       rgba(236,72,153,0.08)
     ),
-    url('/assets/poster.png') center/cover no-repeat;
+    url('../assets/poster.png') center/cover no-repeat;
 
   border-right:1px solid rgba(255,255,255,0.08);
 }
@@ -503,7 +503,7 @@ main {
   <div class="lp-left">
     <div>
       <a href="/" style="display:block;margin-bottom:32px">
-        <img src="assets/logo_2.svg" alt="CampusConnect" style="height:44px;width:auto;display:block;filter:none">
+        <img src="../assets/logo_2.svg" alt="CampusConnect" style="height:44px;width:auto;display:block;filter:none">
       </a>
       <div class="lp-heading">Check your<br><span>inbox</span></div>
       <p class="lp-sub">One quick step and you're in. Verify your email to activate your CampusConnect account.</p>
@@ -517,7 +517,7 @@ main {
 
   <div class="lp-right">
     <a class="lp-mobile-logo" href="/">
-      <img src="assets/logo_2.svg" alt="CampusConnect">
+      <img src="../assets/logo_2.svg" alt="CampusConnect">
       <span class="lp-mobile-logo-name">CampusConnect</span>
     </a>
     <a class="lp-back" href="/pages/get-started.html">
@@ -547,51 +547,14 @@ main {
   </div>
 </div>
 
-
-
 <footer class="footer">
     <div class="footer-container">
-
-        <!-- Brand -->
         <div class="footer-section">
             <h2>Campus Connect</h2>
             <p>Connecting students with trusted campus services.</p>
             <p>Email: admin@campus-connect.co.za</p>
         </div>
-
-        <!-- Quick Links -
-        <div class="footer-section">
-            <h3>Quick Links</h3> 
-             <a href="#" onclick="window.location.href='index.html'">Home</a>
-    
-            <a href="#" onclick="window.location.href='about.html'">About</a>
-    
-            <a href="#" onclick="window.location.href='contact.html'">Contact</a>
-        </div>-->
-
-        <!-- Legal 
-        <div class="footer-section">
-            <h3>Legal</h3>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms and Conditions</a>
-            
-        </div>-->
-
-        <!-- Social Media -
-        <div class="footer-section">
-            <h3>Follow Us</h3>
-
-            <div class="social-links">
-                <a href="https://facebook.com" target="_blank">Facebook</a>
-                <a href="https://instagram.com" target="_blank">Instagram</a>
-                <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-                <a href="https://twitter.com" target="_blank">Twitter/X</a>
-            </div>
-        </div>-->
-
     </div>
-
-    <!-- Bottom Footer -->
     <div class="footer-bottom">
         <p>&copy; 2026 Campus Connect | All Rights Reserved</p>
     </div>
@@ -599,11 +562,11 @@ main {
 
 <div id="toast-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="/js/config.js"></script>
+<script src="../js/config.js"></script>
 <script>window.sbClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON);</script>
-<script src="/js/api.js"></script>
-<script src="/js/auth.js"></script>
-<script src="/js/common.js"></script>
-<script src="/js/verify.js"></script>
+<script src="../js/api.js"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/verify.js"></script>
 </body>
 </html>
