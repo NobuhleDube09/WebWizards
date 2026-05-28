@@ -11,139 +11,490 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+    *,
+*::before,
+*::after{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+html,
+body{
+  min-height:100vh;
+}
 
-    .lp-card {
-      background: #ffffff;
-      border-radius: 0;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      overflow: hidden;
-      box-shadow: none;
-    }
+body{
+  font-family:'Inter',sans-serif;
+  background:#0f172a;
+  overflow-x:hidden;
+  position:relative;
+}
 
-    .lp-left {
-      flex: 0 0 42%;
-      background: url('/assets/poster.png') center/cover no-repeat;
-      padding: 52px 48px 44px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 100vh;
-      overflow-y: auto;
-    }
+/* BACKGROUND GLOWS */
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  border-radius:50%;
+  filter:blur(90px);
+  z-index:0;
+}
 
-    .lp-icon {
-      width: 52px; height: 52px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 14px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 36px;
-    }
+body::before{
+  width:420px;
+  height:420px;
+  background:rgba(249,115,22,0.18);
+  top:-120px;
+  left:-100px;
+}
 
-    .lp-heading {
-      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
-      font-weight: 900;
-      color: #ffffff;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.65);
-      line-height: 1.1;
-      letter-spacing: -0.04em;
-      margin-bottom: 16px;
-    }
-    .lp-heading span { color: rgba(255,255,255,0.85); }
+body::after{
+  width:520px;
+  height:520px;
+  background:rgba(236,72,153,0.12);
+  bottom:-180px;
+  right:-120px;
+}
 
-    .lp-sub {
-      font-size: 0.93rem;
-      color: rgba(255,255,255,0.95);
-      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
-      line-height: 1.65;
-      max-width: 300px;
-    }
+/* MAIN CARD */
+.lp-card{
+  position:relative;
+  z-index:2;
 
-    .lp-steps { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
-    .lp-step { display: flex; align-items: flex-start; gap: 14px; }
-    .lp-step-num {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: #00C97F;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.78rem; font-weight: 700; color: #fff; flex-shrink: 0;
-    }
-    .lp-step-text { font-size: 0.85rem; color: rgba(255,255,255,0.95); text-shadow: 0 1px 4px rgba(0,0,0,0.5); line-height: 1.5; padding-top: 4px; }
+  width:100%;
+  min-height:100vh;
 
-    .lp-right {
-      flex: 1;
-      background: #f7f8f7;
-      padding: 52px 48px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100vh;
-      overflow-y: auto;
-    }
+  display:flex;
 
-    .lp-back {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.82rem; font-weight: 600; color: #888;
-      text-decoration: none; margin-bottom: 32px; transition: color 0.15s;
-    }
-    .lp-back:hover { color: #00C97F; }
+  background:
+    rgba(15,23,42,0.78);
 
-    .v-state { display: flex; flex-direction: column; align-items: flex-start; }
-    .v-state-icon {
-      width: 64px; height: 64px;
-      background: #e6fff4;
-      border-radius: 18px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 24px;
-      color: #00C97F;
-    }
-    .v-state h2 { font-size: 1.55rem; font-weight: 800; color: #111827; margin-bottom: 10px; }
-    .v-state p { font-size: 0.9rem; color: #6b7280; line-height: 1.65; max-width: 340px; margin-bottom: 28px; }
+  backdrop-filter:blur(16px);
+}
 
-    .btn-primary {
-      display: inline-flex; align-items: center; justify-content: center;
-      background: #00C97F; color: #fff;
-      font-size: 0.95rem; font-weight: 700;
-      border: none; border-radius: 12px; padding: 14px 28px;
-      cursor: pointer; text-decoration: none;
-      transition: background 0.18s, transform 0.14s, box-shadow 0.18s;
-    }
-    .btn-primary:hover { background: #00a868; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,201,127,0.3); }
+/* LEFT PANEL */
+.lp-left{
+  flex:0 0 42%;
 
-    .btn-ghost {
-      display: inline-flex; align-items: center;
-      background: none; border: 2px solid #e5e7eb;
-      border-radius: 10px; padding: 10px 20px;
-      font-size: 0.88rem; font-weight: 600; color: #374151;
-      cursor: pointer; text-decoration: none;
-      transition: border-color 0.15s, color 0.15s;
-    }
-    .btn-ghost:hover { border-color: #00C97F; color: #00C97F; }
+  padding:56px 48px;
 
-    .resend-row { font-size: 0.85rem; color: #9ca3af; margin-top: 16px; }
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
 
-    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+  background:
+    linear-gradient(
+      135deg,
+      rgba(249,115,22,0.16),
+      rgba(236,72,153,0.08)
+    ),
+    url('/assets/poster.png') center/cover no-repeat;
 
-    .lp-mobile-logo { display:none; align-items:center; gap:10px; margin-bottom:28px; text-decoration:none; }
-    .lp-mobile-logo img { height:36px; width:auto; }
-    .lp-mobile-logo-name { font-weight:800; font-size:1rem; color:#111827; letter-spacing:-.02em; }
+  border-right:1px solid rgba(255,255,255,0.08);
+}
 
-    @media (max-width: 700px) {
-      html, body { height: auto; overflow-y: auto; }
-      .lp-card { flex-direction: column; height: auto; min-height: 100vh; overflow: visible; }
-      .lp-left { display: none; }
-      .lp-mobile-logo { display:flex; }
-      .lp-right { padding: 40px 28px 48px; height: auto; overflow: visible; flex: 1; }
-    }
-    @media (max-width: 480px) {
-      .lp-right { padding: 32px 20px 40px; }
-    }
+/* HEADING */
+.lp-heading{
+  font-size:clamp(2.2rem,4vw,4rem);
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-2px;
+
+  color:white;
+
+  margin-bottom:20px;
+
+  text-shadow:
+    0 6px 20px rgba(0,0,0,0.45);
+}
+
+.lp-heading span{
+  background:
+    linear-gradient(
+      135deg,
+      #f97316,
+      #fb7185
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* SUBTEXT */
+.lp-sub{
+  font-size:15px;
+  line-height:1.8;
+
+  color:rgba(255,255,255,0.88);
+
+  max-width:360px;
+
+  text-shadow:
+    0 2px 10px rgba(0,0,0,0.35);
+}
+
+/* STEPS */
+.lp-steps{
+  margin-top:50px;
+
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.lp-step{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+}
+
+.lp-step-num{
+  width:34px;
+  height:34px;
+
+  border-radius:50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f97316,
+      #ea580c
+    );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:14px;
+  font-weight:800;
+  color:white;
+
+  flex-shrink:0;
+
+  box-shadow:
+    0 8px 20px rgba(249,115,22,0.3);
+}
+
+.lp-step-text{
+  font-size:14px;
+  line-height:1.7;
+
+  color:rgba(255,255,255,0.92);
+
+  padding-top:4px;
+}
+
+/* RIGHT PANEL */
+.lp-right{
+  flex:1;
+
+  background:
+    rgba(15,23,42,0.88);
+
+  padding:56px 52px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+/* BACK BUTTON */
+.lp-back{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  width:fit-content;
+
+  text-decoration:none;
+
+  color:#94a3b8;
+
+  font-size:14px;
+  font-weight:600;
+
+  margin-bottom:40px;
+
+  transition:0.25s ease;
+}
+
+.lp-back:hover{
+  color:#f97316;
+}
+
+/* VERIFY STATE */
+.v-state{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.v-state-icon{
+  width:78px;
+  height:78px;
+
+  border-radius:22px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-bottom:28px;
+
+  color:#f97316;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(249,115,22,0.12),
+      rgba(236,72,153,0.08)
+    );
+
+  border:1px solid rgba(249,115,22,0.2);
+}
+
+.v-state h2{
+  font-size:38px;
+  font-weight:900;
+  letter-spacing:-1px;
+
+  color:white;
+
+  margin-bottom:14px;
+}
+
+.v-state p{
+  font-size:15px;
+  line-height:1.8;
+
+  color:#94a3b8;
+
+  max-width:500px;
+
+  margin-bottom:28px;
+}
+
+/* PRIMARY BUTTON */
+.btn-primary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:16px 28px;
+
+  border-radius:18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f97316,
+      #ea580c
+    );
+
+  color:white;
+  text-decoration:none;
+
+  font-size:15px;
+  font-weight:700;
+
+  transition:0.25s ease;
+
+  box-shadow:
+    0 14px 30px rgba(249,115,22,0.25);
+}
+
+.btn-primary:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 18px 40px rgba(249,115,22,0.35);
+}
+
+/* GHOST BUTTON */
+.btn-ghost{
+  background:none;
+  border:none;
+
+  color:#f97316;
+
+  font-size:14px;
+  font-weight:700;
+
+  cursor:pointer;
+}
+
+.btn-ghost:hover{
+  text-decoration:underline;
+}
+
+/* RESEND */
+.resend-row{
+  font-size:14px;
+  color:#94a3b8;
+}
+
+/* MOBILE LOGO */
+.lp-mobile-logo{
+  display:none;
+  align-items:center;
+  gap:10px;
+
+  margin-bottom:28px;
+
+  text-decoration:none;
+}
+
+.lp-mobile-logo img{
+  height:36px;
+}
+
+.lp-mobile-logo-name{
+  font-weight:800;
+  font-size:1rem;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f97316,
+      #fb7185
+    );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+/* TOAST */
+#toast-container{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  z-index:9999;
+}
+
+/* RESPONSIVE */
+@media (max-width:900px){
+
+  .lp-card{
+    flex-direction:column;
+  }
+
+  .lp-left{
+    display:none;
+  }
+
+  .lp-mobile-logo{
+    display:flex;
+  }
+
+  .lp-right{
+    min-height:100vh;
+    padding:42px 28px;
+  }
+
+  .v-state h2{
+    font-size:30px;
+  }
+}
+
+@media (max-width:480px){
+
+  .lp-right{
+    padding:32px 20px;
+  }
+
+  .v-state{
+    align-items:center;
+    text-align:center;
+  }
+
+  .resend-row{
+    text-align:center;
+  }
+
+  .btn-primary{
+    width:100%;
+  }
+}
+
+
+
+ /* PAGE LAYOUT */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+}
+
+/* FOOTER */
+.footer {
+    background: #0f172a;
+    color: white;
+    padding: 40px 20px 10px;
+    margin-top: auto;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-section h2,
+.footer-section h3 {
+    margin-bottom: 15px;
+    color: #38bdf8;
+}
+
+.footer-section p {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+.footer-section a {
+    display: block;
+    color: #e2e8f0;
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.footer-section a:hover {
+    color: #38bdf8;
+    padding-left: 5px;
+}
+
+/* SOCIAL LINKS */
+.social-links a {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+/* BOTTOM FOOTER */
+.footer-bottom {
+    border-top: 1px solid #334155;
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.footer-section a {
+    display: block;
+    margin: 5px 0;
+}
+
   </style>
 </head>
 <body>
@@ -195,6 +546,56 @@
     </div>
   </div>
 </div>
+
+
+
+<footer class="footer">
+    <div class="footer-container">
+
+        <!-- Brand -->
+        <div class="footer-section">
+            <h2>Campus Connect</h2>
+            <p>Connecting students with trusted campus services.</p>
+            <p>Email: admin@campus-connect.co.za</p>
+        </div>
+
+        <!-- Quick Links -
+        <div class="footer-section">
+            <h3>Quick Links</h3> 
+             <a href="#" onclick="window.location.href='index.html'">Home</a>
+    
+            <a href="#" onclick="window.location.href='about.html'">About</a>
+    
+            <a href="#" onclick="window.location.href='contact.html'">Contact</a>
+        </div>-->
+
+        <!-- Legal 
+        <div class="footer-section">
+            <h3>Legal</h3>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms and Conditions</a>
+            
+        </div>-->
+
+        <!-- Social Media -
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank">Facebook</a>
+                <a href="https://instagram.com" target="_blank">Instagram</a>
+                <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                <a href="https://twitter.com" target="_blank">Twitter/X</a>
+            </div>
+        </div>-->
+
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="footer-bottom">
+        <p>&copy; 2026 Campus Connect | All Rights Reserved</p>
+    </div>
+</footer>
 
 <div id="toast-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
