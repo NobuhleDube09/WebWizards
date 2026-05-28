@@ -1,0 +1,164 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <script>(function(){if(localStorage.getItem("cc_theme")==="dark")document.documentElement.setAttribute("data-theme","dark");}());</script>
+  <link rel="stylesheet" href="/css/dark.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/campus_logo.svg" type="image/svg+xml">
+  <title>Profile &mdash; CampusConnect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    /* ── Override font & layout vars ──────────────── */
+    *, *::before, *::after { font-family: 'Inter', sans-serif !important; }
+    :root {
+      --sidebar-w: 250px;
+      --primary:   #00C97F;
+      --primary-d: #00a868;
+      --primary-bg:#e6fff4;
+      --nav-h: 0px; /* no top nav */
+    }
+
+    html, body { height:100%; background:#f3f5f4; -webkit-font-smoothing:antialiased; overflow:hidden; }
+
+    /* Remove any top-nav space */
+    .page-wrap { padding: 0 !important; }
+
+    /* ── Shell ───────────────────────────────────── */
+    .p-shell { display:flex; height:100vh; overflow:hidden; }
+
+    /* ── Sidebar ─────────────────────────────────── */
+    .b-sidebar {
+      width: var(--sidebar-w); flex-shrink: 0;
+      background: #fff; border-right: 1px solid #e5e7eb;
+      display: flex; flex-direction: column; height: 100vh; overflow: hidden;
+    }
+    .b-sidebar-logo {
+      padding: 20px 20px 18px; display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid #e5e7eb; flex-shrink: 0; text-decoration: none;
+    }
+    .b-sidebar-logo img { height:40px; width:auto; display:block; flex-shrink:0; }
+    .b-logo-name { font-weight:800; font-size:1rem; color:#111827; letter-spacing:-.02em; white-space:nowrap; }
+    .b-sidebar-section { padding:20px 20px 8px; font-size:.68rem; font-weight:700; color:#9ca3af; text-transform:uppercase; letter-spacing:.08em; flex-shrink:0; }
+    .b-sidebar-nav { flex:1; overflow-y:auto; padding:4px 12px 12px; }
+    .b-nav-item {
+      display: flex; align-items: center; gap: 12px; width: 100%; padding: 11px 14px;
+      border: none; border-radius: 10px; background: transparent; color: #4b5563;
+      font-size: .88rem; font-weight: 500; font-family: 'Inter',sans-serif !important;
+      cursor: pointer; text-align: left; text-decoration: none;
+      transition: background .15s, color .15s; margin-bottom: 3px;
+    }
+    .b-nav-item:hover { background:#f3f5f4; color:#111827; }
+    .b-nav-item.active { background:var(--primary-bg); color:var(--primary-d); font-weight:700; }
+    .b-nav-icon { width:18px; height:18px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .b-sidebar-divider { height:1px; background:#e5e7eb; margin:8px 12px; }
+    .b-sidebar-footer {
+      padding: 16px 20px; border-top: 1px solid #e5e7eb;
+      display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+    }
+    .b-sf-info { min-width:0; }
+    .b-sf-name { font-weight:700; font-size:.84rem; color:#111827; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .b-sf-sub  { font-size:.73rem; color:var(--primary-d); font-weight:600; }
+
+    /* ── Main scroll area ────────────────────────── */
+    .p-main {
+      flex: 1; display: flex; flex-direction: column;
+      height: 100vh; overflow: hidden; min-width: 0;
+    }
+    .p-header {
+      padding: 16px 28px 14px; background: #fff;
+      border-bottom: 1px solid #e5e7eb; flex-shrink: 0;
+    }
+    .p-eyebrow { font-size:.68rem; font-weight:700; color:#9ca3af; text-transform:uppercase; letter-spacing:.06em; margin-bottom:3px; }
+    .p-header h1 { font-size:1.35rem; font-weight:800; color:#111827; letter-spacing:-.03em; }
+    .p-scroll { flex:1; overflow-y:auto; padding:28px; }
+    .p-scroll::-webkit-scrollbar { width:4px; }
+    .p-scroll::-webkit-scrollbar-thumb { background:#e5e7eb; border-radius:99px; }
+
+    /* ── Content width cap ───────────────────────── */
+    .p-content { max-width: none; }
+
+    /* ── Listings grid override ───────────────────── */
+    .listings-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)) !important; }
+
+    #toast-container { position:fixed; bottom:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; }
+
+    @media (max-width:768px) {
+      html, body { height: auto; overflow-y: auto; }
+      .p-shell { height: auto; min-height: 100vh; overflow: visible; }
+      .p-main { height: auto; overflow: visible; }
+      .p-scroll { overflow: visible; height: auto; padding:16px; }
+      .b-sidebar { display:none; }
+    }
+  </style>
+</head>
+<body>
+<div class="p-shell">
+
+  <!-- ── Nav sidebar ──────────────────────────────── -->
+  <aside class="b-sidebar">
+    <a class="b-sidebar-logo" href="/">
+      <img src="/assets/logo_2.svg" alt="CampusConnect">
+      <span class="b-logo-name">CampusConnect</span>
+    </a>
+    <div class="b-sidebar-section">Navigate</div>
+    <nav class="b-sidebar-nav">
+      <a class="b-nav-item" href="/pages/browse.html">
+        <span class="b-nav-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/></svg></span>
+        Browse
+      </a>
+      <a class="b-nav-item" href="/pages/dashboard.html">
+        <span class="b-nav-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1z"/></svg></span>
+        Dashboard
+      </a>
+      <a class="b-nav-item" href="/pages/inbox.html">
+        <span class="b-nav-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></svg></span>
+        Inbox
+      </a>
+      <a class="b-nav-item" href="/pages/leaderboard.html">
+        <span class="b-nav-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg></span>
+        Leaderboard
+      </a>
+      <div class="b-sidebar-divider"></div>
+      <a class="b-nav-item" href="/pages/listing-form.html">
+        <span class="b-nav-icon"><svg viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/></svg></span>
+        List a service
+      </a>
+    </nav>
+    <div class="b-sidebar-footer" id="sidebarFooter" style="display:none">
+      <div id="sidebarAvatarWrap"></div>
+      <div class="b-sf-info">
+        <div class="b-sf-name" id="sidebarName"></div>
+        <div class="b-sf-sub"  id="sidebarRank"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── Main ──────────────────────────────────────── -->
+  <div class="p-main">
+    <div class="p-header">
+      <div class="p-eyebrow">Campus</div>
+      <h1>Profile</h1>
+    </div>
+    <div class="p-scroll">
+      <div class="p-content">
+        <div id="profileContent">
+          <div class="loading-wrap"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/config.js"></script>
+<script>window.sbClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON);</script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/profile.js"></script>
+</body>
+</html>

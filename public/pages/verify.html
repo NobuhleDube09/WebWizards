@@ -1,0 +1,208 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <script>(function(){if(localStorage.getItem("cc_theme")==="dark")document.documentElement.setAttribute("data-theme","dark");}());</script>
+  <link rel="stylesheet" href="/css/dark.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/campus_logo.svg" type="image/svg+xml">
+  <title>Verify Email — CampusConnect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .lp-card {
+      background: #ffffff;
+      border-radius: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      box-shadow: none;
+    }
+
+    .lp-left {
+      flex: 0 0 42%;
+      background: url('/assets/poster.png') center/cover no-repeat;
+      padding: 52px 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .lp-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .lp-heading {
+      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.65);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+    .lp-heading span { color: rgba(255,255,255,0.85); }
+
+    .lp-sub {
+      font-size: 0.93rem;
+      color: rgba(255,255,255,0.95);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+      line-height: 1.65;
+      max-width: 300px;
+    }
+
+    .lp-steps { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+    .lp-step { display: flex; align-items: flex-start; gap: 14px; }
+    .lp-step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #00C97F;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .lp-step-text { font-size: 0.85rem; color: rgba(255,255,255,0.95); text-shadow: 0 1px 4px rgba(0,0,0,0.5); line-height: 1.5; padding-top: 4px; }
+
+    .lp-right {
+      flex: 1;
+      background: #f7f8f7;
+      padding: 52px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .lp-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 600; color: #888;
+      text-decoration: none; margin-bottom: 32px; transition: color 0.15s;
+    }
+    .lp-back:hover { color: #00C97F; }
+
+    .v-state { display: flex; flex-direction: column; align-items: flex-start; }
+    .v-state-icon {
+      width: 64px; height: 64px;
+      background: #e6fff4;
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      color: #00C97F;
+    }
+    .v-state h2 { font-size: 1.55rem; font-weight: 800; color: #111827; margin-bottom: 10px; }
+    .v-state p { font-size: 0.9rem; color: #6b7280; line-height: 1.65; max-width: 340px; margin-bottom: 28px; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #00C97F; color: #fff;
+      font-size: 0.95rem; font-weight: 700;
+      border: none; border-radius: 12px; padding: 14px 28px;
+      cursor: pointer; text-decoration: none;
+      transition: background 0.18s, transform 0.14s, box-shadow 0.18s;
+    }
+    .btn-primary:hover { background: #00a868; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,201,127,0.3); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center;
+      background: none; border: 2px solid #e5e7eb;
+      border-radius: 10px; padding: 10px 20px;
+      font-size: 0.88rem; font-weight: 600; color: #374151;
+      cursor: pointer; text-decoration: none;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-ghost:hover { border-color: #00C97F; color: #00C97F; }
+
+    .resend-row { font-size: 0.85rem; color: #9ca3af; margin-top: 16px; }
+
+    #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+
+    .lp-mobile-logo { display:none; align-items:center; gap:10px; margin-bottom:28px; text-decoration:none; }
+    .lp-mobile-logo img { height:36px; width:auto; }
+    .lp-mobile-logo-name { font-weight:800; font-size:1rem; color:#111827; letter-spacing:-.02em; }
+
+    @media (max-width: 700px) {
+      html, body { height: auto; overflow-y: auto; }
+      .lp-card { flex-direction: column; height: auto; min-height: 100vh; overflow: visible; }
+      .lp-left { display: none; }
+      .lp-mobile-logo { display:flex; }
+      .lp-right { padding: 40px 28px 48px; height: auto; overflow: visible; flex: 1; }
+    }
+    @media (max-width: 480px) {
+      .lp-right { padding: 32px 20px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="lp-card">
+  <div class="lp-left">
+    <div>
+      <a href="/" style="display:block;margin-bottom:32px">
+        <img src="/assets/logo_2.svg" alt="CampusConnect" style="height:44px;width:auto;display:block;filter:none">
+      </a>
+      <div class="lp-heading">Check your<br><span>inbox</span></div>
+      <p class="lp-sub">One quick step and you're in. Verify your email to activate your CampusConnect account.</p>
+    </div>
+    <div class="lp-steps">
+      <div class="lp-step"><div class="lp-step-num">1</div><div class="lp-step-text">Open the email we just sent you</div></div>
+      <div class="lp-step"><div class="lp-step-num">2</div><div class="lp-step-text">Enter the 6-digit code on the sign-up page</div></div>
+      <div class="lp-step"><div class="lp-step-num">3</div><div class="lp-step-text">Start connecting with students on campus</div></div>
+    </div>
+  </div>
+
+  <div class="lp-right">
+    <a class="lp-mobile-logo" href="/">
+      <img src="/assets/logo_2.svg" alt="CampusConnect">
+      <span class="lp-mobile-logo-name">CampusConnect</span>
+    </a>
+    <a class="lp-back" href="/pages/get-started.html">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to sign up
+    </a>
+
+    <div id="verifyState" class="v-state">
+      <div class="v-state-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <h2>Verify your email</h2>
+      <p>We sent a 6-digit code to your email address. Head back to the sign-up page to enter it and activate your account.</p>
+      <div class="resend-row">
+        Didn't receive it? &nbsp;<button id="resendBtn" class="btn-ghost">Resend code</button>
+      </div>
+    </div>
+
+    <div id="successState" class="v-state" style="display:none">
+      <div class="v-state-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#00C97F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
+      <h2>Email verified!</h2>
+      <p>Your account is ready. Log in to start exploring and connecting with students on campus.</p>
+      <a class="btn-primary" href="/pages/login.html">Log in now</a>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/config.js"></script>
+<script>window.sbClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON);</script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/verify.js"></script>
+</body>
+</html>

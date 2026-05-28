@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>(function(){if(localStorage.getItem("cc_theme")==="dark")document.documentElement.setAttribute("data-theme","dark");}());</script>
+  <link rel="stylesheet" href="/css/dark.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/campus_logo.svg" type="image/svg+xml">
+  <title>Get Started — CampusConnect</title>
+  <meta name="description" content="Tell us what you need — a tutor, designer, baker, or coder. We'll connect you with the best student talent on your campus.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* ─── Main Card ─────────────────────────────────────── */
+    .lp-card {
+      background: #ffffff;
+      border-radius: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      box-shadow: none;
+    }
+
+    /* ─── Left Panel ─────────────────────────────────────── */
+    .lp-left {
+      flex: 0 0 42%;
+      background: linear-gradient(rgba(255,255,255,.22), rgba(255,255,255,.22)), url('/assets/hero-register.jpg') center/cover no-repeat;
+      padding: 56px 52px 48px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .lp-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #888;
+      text-decoration: none;
+      margin-bottom: 28px;
+      transition: color 0.15s;
+    }
+    .lp-back:hover { color: #00C97F; }
+    .lp-back svg { flex-shrink: 0; }
+
+    .lp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #00965d;
+      background: #e6fff5;
+      border: 1px solid #b3f0d4;
+      padding: 5px 14px;
+      border-radius: 100px;
+      width: fit-content;
+      margin-bottom: 28px;
+      letter-spacing: 0.01em;
+    }
+
+    .lp-heading {
+      font-size: clamp(2rem, 3.6vw, 2.9rem);
+      font-weight: 900;
+      color: #0d0d0d;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 20px;
+    }
+
+    .lp-heading em {
+      font-style: italic;
+      color: #00C97F;
+    }
+
+    .lp-sub {
+      font-size: 0.94rem;
+      color: #666;
+      line-height: 1.65;
+      margin-bottom: 36px;
+      max-width: 340px;
+    }
+
+    /* ─── Illustration ───────────────────────────────────── */
+    .lp-illustration {
+      flex: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    /* ─── Right Panel ────────────────────────────────────── */
+    .lp-right {
+      flex: 1;
+      background: #f7f8f7;
+      padding: 44px 48px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      height: 100vh;
+    }
+    #formPanel { display: flex; flex-direction: column; gap: 14px; }
+    .form-msg { padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; font-weight: 500; margin-bottom: 4px; }
+
+    .lp-form-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 4px;
+    }
+
+    /* ─── Inputs ─────────────────────────────────────────── */
+    .lp-input {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      color: #1a1a1a;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      appearance: none;
+    }
+    .lp-input:focus { border-color: #00C97F; box-shadow: 0 0 0 3px rgba(0,201,127,0.1); }
+    .lp-input::placeholder { color: #bbb; }
+
+    select.lp-input {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer;
+    }
+
+    .lp-row {
+      display: flex;
+      gap: 12px;
+    }
+    .lp-row .lp-input { flex: 1; min-width: 0; }
+
+    /* ─── Chips ──────────────────────────────────────────── */
+    .lp-chips-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 2px;
+      margin-bottom: -4px;
+    }
+
+    .lp-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .lp-chip {
+      padding: 6px 16px;
+      border: 1.5px solid #e2e2e2;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #555;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+      user-select: none;
+    }
+    .lp-chip:hover { border-color: #00C97F; color: #00965d; background: #f0fff8; }
+    .lp-chip.active { background: #00C97F; border-color: #00C97F; color: #fff; }
+
+    textarea.lp-input {
+      resize: vertical;
+      min-height: 88px;
+      line-height: 1.5;
+    }
+
+    /* ─── Submit Button ──────────────────────────────────── */
+    .lp-btn {
+      width: 100%;
+      background: #00C97F;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      text-align: center;
+      letter-spacing: 0.01em;
+      transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+      margin-top: 6px;
+      box-shadow: 0 4px 14px rgba(0,201,127,0.3);
+    }
+    .lp-btn:hover { background: #00b36e; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,201,127,0.35); }
+    .lp-btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(0,201,127,0.2); }
+
+    /* ─── Footer Links ───────────────────────────────────── */
+    .lp-footer {
+      width: 100%;
+      max-width: 1100px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 80px;
+      padding: 4px 0 8px;
+    }
+
+    .lp-footer-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.25);
+      margin-top: 4px;
+    }
+
+    .lp-footer-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-align: center;
+    }
+
+    .lp-footer-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+    }
+
+    .lp-footer-link {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+      transition: opacity 0.15s;
+    }
+    .lp-footer-link:hover { opacity: 0.75; }
+
+    /* ─── OTP boxes ──────────────────────────────────────── */
+    .otp-box {
+      width: 48px; height: 56px;
+      text-align: center;
+      font-size: 1.5rem; font-weight: 800; font-family: 'Inter', sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+      border: 2px solid #e8e8e8;
+      border-radius: 12px;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      caret-color: transparent;
+    }
+    .otp-box:focus { border-color: #00C97F; box-shadow: 0 0 0 3px rgba(0,201,127,0.12); }
+    .otp-box.filled { border-color: #00C97F; }
+
+    /* ─── Responsive ─────────────────────────────────────── */
+    .lp-mobile-logo { display:none; align-items:center; gap:10px; margin-bottom:28px; text-decoration:none; }
+    .lp-mobile-logo img { height:36px; width:auto; }
+    .lp-mobile-logo-name { font-weight:800; font-size:1rem; color:#111827; letter-spacing:-.02em; }
+
+    @media (max-width: 860px) {
+      html, body { height: auto; overflow-y: auto; }
+      .lp-card { flex-direction: column; height: auto; min-height: 100vh; overflow: visible; }
+      .lp-left { display: none; }
+      .lp-mobile-logo { display:flex; }
+      .lp-right { padding: 40px 32px 48px; height: auto; overflow: visible; flex: 1; }
+      .lp-footer { gap: 36px; flex-wrap: wrap; }
+      .lp-footer-divider { display: none; }
+    }
+    @media (max-width: 520px) {
+      .lp-row { flex-direction: column; gap: 14px; }
+      .lp-right { padding: 32px 20px 40px; }
+      .lp-footer { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Main Card ──────────────────────────────────────────── -->
+<div class="lp-card">
+
+  <!-- LEFT: Hero -->
+  <div class="lp-left">
+    <a href="/" style="display:block;margin-bottom:32px">
+      <img src="/assets/logo_2.svg" alt="CampusConnect" style="height:44px;width:auto;display:block;filter:none">
+    </a>
+    <a href="/" class="lp-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to home
+    </a>
+    <div>
+      <div class="lp-badge">South Africa&rsquo;s Campus Marketplace</div>
+      <h1 class="lp-heading">Let&rsquo;s Make Your Campus Skills <em>Pay Off.</em></h1>
+      <p class="lp-sub">Tell us what you need &mdash; a tutor, designer, baker, or coder. We&rsquo;ll connect you with the best student talent on your campus.</p>
+    </div>
+
+    <!-- Illustration -->
+    <div class="lp-illustration">
+      <svg width="270" height="210" viewBox="0 0 270 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="25" y="162" width="220" height="7" rx="3.5" fill="#e2e2e2"/>
+        <rect x="65" y="153" width="140" height="12" rx="5" fill="#d4d4d4"/>
+        <rect x="100" y="158" width="70" height="4" rx="2" fill="#c0c0c0"/>
+        <rect x="70" y="82" width="130" height="78" rx="8" fill="#2a2a3a"/>
+        <rect x="76" y="88" width="118" height="67" rx="5" fill="#1a1a2e"/>
+        <rect x="76" y="88" width="118" height="20" rx="5" fill="#00C97F" opacity="0.12"/>
+        <rect x="84" y="100" width="50" height="5" rx="2.5" fill="#00C97F" opacity="0.9"/>
+        <rect x="84" y="111" width="80" height="4" rx="2" fill="white" opacity="0.35"/>
+        <rect x="84" y="120" width="60" height="4" rx="2" fill="white" opacity="0.35"/>
+        <rect x="84" y="129" width="90" height="4" rx="2" fill="white" opacity="0.35"/>
+        <rect x="84" y="138" width="45" height="4" rx="2" fill="white" opacity="0.35"/>
+        <circle cx="170" cy="103" r="3" fill="#00C97F" opacity="0.7"/>
+        <circle cx="180" cy="103" r="3" fill="#FFD700" opacity="0.7"/>
+        <circle cx="190" cy="103" r="3" fill="#FF6B6B" opacity="0.7"/>
+        <rect x="104" y="108" width="42" height="46" rx="12" fill="#6c63ff"/>
+        <circle cx="125" cy="90" r="19" fill="#f5c5a3"/>
+        <path d="M106 86 Q125 64 144 86 Q144 74 125 68 Q106 74 106 86Z" fill="#3d2314"/>
+        <rect x="84" y="118" width="24" height="9" rx="4.5" fill="#f5c5a3" transform="rotate(-12 84 118)"/>
+        <rect x="146" y="115" width="24" height="9" rx="4.5" fill="#f5c5a3" transform="rotate(12 146 115)"/>
+        <g transform="translate(18, 28)">
+          <path d="M18 0 L36 8 L18 16 L0 8 Z" fill="#6c63ff"/>
+          <rect x="34" y="8" width="3.5" height="15" fill="#6c63ff"/>
+          <ellipse cx="35.75" cy="23" rx="4" ry="3" fill="#6c63ff" opacity="0.5"/>
+        </g>
+        <path d="M218 22 L221.8 31.8 L232 32.5 L224.5 39.2 L226.8 49.2 L218 43.8 L209.2 49.2 L211.5 39.2 L204 32.5 L214.2 31.8 Z" fill="#FFD700"/>
+        <circle cx="244" cy="108" r="18" fill="#00C97F" opacity="0.18"/>
+        <circle cx="244" cy="108" r="13" fill="#00C97F" opacity="0.22"/>
+        <text x="237.5" y="114" font-family="Arial, sans-serif" font-weight="800" font-size="14" fill="#00965d">R</text>
+        <g transform="rotate(-14, 26, 120)">
+          <rect x="10" y="102" width="30" height="38" rx="4" fill="#FF6B6B"/>
+          <rect x="13" y="105" width="24" height="32" rx="3" fill="#FF8A80"/>
+          <rect x="10" y="102" width="5" height="38" rx="4" fill="#e05050"/>
+          <rect x="18" y="112" width="14" height="2.5" rx="1.25" fill="white" opacity="0.6"/>
+          <rect x="18" y="118" width="10" height="2.5" rx="1.25" fill="white" opacity="0.6"/>
+        </g>
+        <path d="M188 60 L216 50 L200 72 Z" fill="white" opacity="0.85"/>
+        <path d="M200 72 L203 60 L188 60 Z" fill="#e8e8e8" opacity="0.7"/>
+        <rect x="10" y="138" width="44" height="30" rx="9" fill="#6c63ff" opacity="0.14"/>
+        <path d="M16 168 L11 177 L27 168 Z" fill="#6c63ff" opacity="0.14"/>
+        <rect x="17" y="147" width="26" height="3" rx="1.5" fill="#6c63ff" opacity="0.45"/>
+        <rect x="17" y="154" width="18" height="3" rx="1.5" fill="#6c63ff" opacity="0.45"/>
+        <circle cx="52" cy="58" r="3" fill="#FFD700" opacity="0.7"/>
+        <circle cx="246" cy="68" r="2.5" fill="#00C97F" opacity="0.5"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- RIGHT: Form / Success state -->
+  <div class="lp-right" id="lpRight">
+
+    <a class="lp-mobile-logo" href="/">
+      <img src="/assets/logo_2.svg" alt="CampusConnect">
+      <span class="lp-mobile-logo-name">CampusConnect</span>
+    </a>
+
+    <!-- ── Form panel ────────────────────── -->
+    <div id="formPanel">
+      <div class="lp-form-title">Create your free account</div>
+      <p style="font-size:0.85rem;color:#999;margin-bottom:16px">Already have an account? <a href="/pages/login.html" style="color:#00965d;font-weight:700;text-decoration:none">Log in</a></p>
+
+      <div id="formMsg" style="display:none;padding:10px 14px;border-radius:10px;font-size:0.85rem;font-weight:500;margin-bottom:14px;"></div>
+
+      <div class="lp-row">
+        <input class="lp-input" id="lpName" type="text" placeholder="Full name*" autocomplete="name">
+        <input class="lp-input" id="lpEmail" type="email" placeholder="Email address*" autocomplete="email">
+      </div>
+
+      <div class="lp-row">
+        <input class="lp-input" id="lpFaculty" type="text" placeholder="Faculty / department*">
+        <select class="lp-input" id="lpYear">
+          <option value="">Year of study*</option>
+          <option value="1">1st year</option>
+          <option value="2">2nd year</option>
+          <option value="3">3rd year</option>
+          <option value="4">4th year</option>
+          <option value="5">5th year</option>
+          <option value="6">Postgrad</option>
+        </select>
+      </div>
+
+      <select class="lp-input" id="lpRole">
+        <option value="">I want to...*</option>
+        <option value="buy">Find a service</option>
+        <option value="sell">Sell my skills</option>
+      </select>
+
+      <div style="position:relative">
+        <input class="lp-input" id="lpPassword" type="password" placeholder="Password (min 8 characters)*" autocomplete="new-password" style="padding-right:44px">
+        <button type="button" id="togglePw" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#aaa;font-size:0.8rem;font-weight:600">SHOW</button>
+      </div>
+
+      <button class="lp-btn" id="lpSubmit">Create account</button>
+
+      <p style="font-size:0.75rem;color:#bbb;text-align:center;margin-top:4px">By signing up you agree to our Terms &amp; Privacy Policy.</p>
+    </div>
+
+    <!-- ── OTP verification panel ──────── -->
+    <div id="successPanel" style="display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;gap:18px;padding:24px 0">
+      <div style="width:72px;height:72px;background:#f0fff8;border:2px solid #b3f0d4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="3" y="7" width="26" height="18" rx="3" stroke="#00965d" stroke-width="2"/><path d="M3 10l13 9 13-9" stroke="#00965d" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h2 style="font-size:1.35rem;font-weight:800;color:#1a1a1a;margin:0">Check your email</h2>
+      <p style="font-size:0.9rem;color:#666;line-height:1.65;max-width:320px;margin:0">We sent a 6-digit code to <strong id="sentEmail" style="color:#1a1a1a"></strong>. Enter it below to verify your account.</p>
+
+      <div id="otpMsg" style="display:none;padding:10px 14px;border-radius:10px;font-size:0.85rem;font-weight:500;width:100%;max-width:320px;box-sizing:border-box;text-align:left"></div>
+
+      <!-- OTP digit boxes -->
+      <div id="otpBoxes" style="display:flex;gap:10px;justify-content:center">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+        <input class="otp-box" maxlength="1" inputmode="numeric" pattern="[0-9]">
+      </div>
+
+      <button id="otpSubmit" class="lp-btn" style="max-width:320px">Verify account</button>
+      <p style="font-size:0.82rem;color:#bbb;margin:0">Didn't receive a code? <button id="resendBtn" style="background:none;border:none;color:#00965d;font-weight:700;cursor:pointer;font-size:0.82rem;font-family:inherit;padding:0">Resend</button></p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── Footer Links ────────────────────────────────────────── -->
+<div class="lp-footer">
+  <div class="lp-footer-col">
+    <span class="lp-footer-label">Find a service</span>
+    <a class="lp-footer-link" href="/pages/browse.html">browse@campusconnect.co.za</a>
+  </div>
+  <div class="lp-footer-divider"></div>
+  <div class="lp-footer-col">
+    <span class="lp-footer-label">Sell your skills</span>
+    <a class="lp-footer-link" href="/pages/listing-form.html">sell@campusconnect.co.za</a>
+  </div>
+  <div class="lp-footer-divider"></div>
+  <div class="lp-footer-col">
+    <span class="lp-footer-label">Join the community</span>
+    <a class="lp-footer-link" href="/pages/register.html">join@campusconnect.co.za</a>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/config.js"></script>
+<script>window.sbClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON);</script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/common.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  // Pre-select role from URL param
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlRole   = urlParams.get('role');
+  if (urlRole) {
+    const sel = document.getElementById('lpRole');
+    if (sel) sel.value = urlRole;
+  }
+
+  // Registration submit state (hoisted so the verify-redirect block can use _email)
+  let _email = '', _password = '';
+
+  // If redirected from login because account is unverified, jump straight to OTP panel
+  const urlStep  = urlParams.get('step');
+  const urlEmail = urlParams.get('email');
+  if (urlStep === 'verify' && urlEmail) {
+    _email = decodeURIComponent(urlEmail).toLowerCase();
+    document.getElementById('sentEmail').textContent = _email;
+    document.getElementById('formPanel').style.display = 'none';
+    document.getElementById('successPanel').style.display = 'flex';
+    // Auto-resend a fresh code
+    try {
+      const r = await fetch('/api/auth/resend-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: _email }),
+      });
+      if (r.ok) {
+        const otpMsg = document.getElementById('otpMsg');
+        otpMsg.textContent   = 'A new verification code was sent to your email.';
+        otpMsg.style.display = 'block';
+        otpMsg.style.background = '#f0fff8';
+        otpMsg.style.border     = '1px solid #b3f0d4';
+        otpMsg.style.color      = '#00965d';
+      }
+    } catch (_) { /* silent — user can hit Resend manually */ }
+    document.querySelector('.otp-box')?.focus();
+  }
+
+  // Show/hide password
+  const togglePw = document.getElementById('togglePw');
+  const pwInput  = document.getElementById('lpPassword');
+  togglePw?.addEventListener('click', () => {
+    const hidden = pwInput.type === 'password';
+    pwInput.type = hidden ? 'text' : 'password';
+    togglePw.textContent = hidden ? 'HIDE' : 'SHOW';
+  });
+
+  // Inline form message helper
+  const formMsg = document.getElementById('formMsg');
+  const showMsg = (msg, type) => {
+    formMsg.textContent = msg;
+    formMsg.style.display = 'block';
+    formMsg.style.background = type === 'error' ? '#fff0f0' : '#f0fff8';
+    formMsg.style.border     = type === 'error' ? '1px solid #fcc' : '1px solid #b3f0d4';
+    formMsg.style.color      = type === 'error' ? '#c00' : '#00965d';
+  };
+
+  // Registration submit
+  const submitBtn = document.getElementById('lpSubmit');
+
+  const submit = async () => {
+    const name     = document.getElementById('lpName')?.value.trim();
+    const email    = document.getElementById('lpEmail')?.value.trim();
+    const faculty  = document.getElementById('lpFaculty')?.value.trim();
+    const year     = document.getElementById('lpYear')?.value;
+    const password = document.getElementById('lpPassword')?.value;
+
+    if (!name)    { document.getElementById('lpName').focus();    return showMsg('Full name is required.', 'error'); }
+    if (!email)   { document.getElementById('lpEmail').focus();   return showMsg('Email is required.', 'error'); }
+    if (!faculty) { document.getElementById('lpFaculty').focus(); return showMsg('Faculty is required.', 'error'); }
+    if (!year)    { document.getElementById('lpYear').focus();    return showMsg('Year of study is required.', 'error'); }
+
+    const role = document.getElementById('lpRole')?.value;
+    if (!role) { document.getElementById('lpRole').focus(); return showMsg('Please select how you plan to use CampusConnect.', 'error'); }
+
+    if (!password || password.length < 8) {
+      document.getElementById('lpPassword').focus();
+      return showMsg('Password must be at least 8 characters.', 'error');
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Creating account...';
+    formMsg.style.display = 'none';
+
+    try {
+      const res  = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email.toLowerCase(),
+          password,
+          name,
+          faculty,
+          year_of_study: Number(year),
+          account_type: role === 'sell' ? 'seller' : 'buyer',
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Registration failed.');
+
+      _email    = email.toLowerCase();
+      _password = password;
+
+      // OTP is now generated + emailed by the backend during registration
+      document.getElementById('sentEmail').textContent = email;
+      document.getElementById('formPanel').style.display = 'none';
+      const sp = document.getElementById('successPanel');
+      sp.style.display = 'flex';
+      document.querySelector('.otp-box')?.focus();
+    } catch (err) {
+      showMsg(err.message, 'error');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Create account';
+    }
+  };
+
+  submitBtn?.addEventListener('click', submit);
+  document.querySelectorAll('.lp-input').forEach(inp => {
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') submit(); });
+  });
+
+  // OTP box keyboard navigation + paste handling
+  const otpBoxes = Array.from(document.querySelectorAll('.otp-box'));
+  otpBoxes.forEach((box, i) => {
+    box.addEventListener('input', () => {
+      box.value = box.value.replace(/\D/g, '').slice(-1);
+      box.classList.toggle('filled', !!box.value);
+      if (box.value && i < otpBoxes.length - 1) otpBoxes[i + 1].focus();
+    });
+    box.addEventListener('keydown', e => {
+      if (e.key === 'Backspace' && !box.value && i > 0) otpBoxes[i - 1].focus();
+    });
+    box.addEventListener('paste', e => {
+      e.preventDefault();
+      const digits = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+      digits.split('').forEach((d, idx) => {
+        if (otpBoxes[idx]) { otpBoxes[idx].value = d; otpBoxes[idx].classList.add('filled'); }
+      });
+      otpBoxes[Math.min(digits.length, otpBoxes.length - 1)]?.focus();
+    });
+  });
+
+  // OTP verify
+  const otpMsg = document.getElementById('otpMsg');
+  const showOtpMsg = (msg, type) => {
+    otpMsg.textContent = msg;
+    otpMsg.style.display = 'block';
+    otpMsg.style.background = type === 'error' ? '#fff0f0' : '#f0fff8';
+    otpMsg.style.border     = type === 'error' ? '1px solid #fcc' : '1px solid #b3f0d4';
+    otpMsg.style.color      = type === 'error' ? '#c00' : '#00965d';
+  };
+
+  document.getElementById('otpSubmit')?.addEventListener('click', async () => {
+    const code = otpBoxes.map(b => b.value).join('');
+    if (code.length < 6) return showOtpMsg('Enter all 6 digits.', 'error');
+
+    const otpBtn = document.getElementById('otpSubmit');
+    otpBtn.disabled = true;
+    otpBtn.textContent = 'Verifying...';
+    otpMsg.style.display = 'none';
+
+    try {
+      const res  = await fetch('/api/auth/verify-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: _email, code }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Verification failed.');
+
+      showOtpMsg('Verified! Signing you in...', 'success');
+
+      const { data: authData, error: signInError } = await window.sbClient.auth.signInWithPassword({
+        email: _email,
+        password: _password,
+      });
+      if (signInError) throw new Error(signInError.message);
+
+      localStorage.setItem('cc_session', JSON.stringify(authData.session));
+      localStorage.setItem('cc_user',    JSON.stringify(authData.user));
+      _password = '';
+
+      window.location.href = '/pages/dashboard.html';
+    } catch (err) {
+      showOtpMsg(err.message, 'error');
+      otpBtn.disabled = false;
+      otpBtn.textContent = 'Verify account';
+    }
+  });
+
+  // Resend OTP
+  document.getElementById('resendBtn')?.addEventListener('click', async () => {
+    if (!_email) return;
+    const btn = document.getElementById('resendBtn');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    try {
+      const r = await fetch('/api/auth/resend-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: _email }),
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Could not resend.');
+      showOtpMsg('New code sent! Check your inbox.', 'success');
+      otpBoxes.forEach(b => { b.value = ''; b.classList.remove('filled'); });
+      otpBoxes[0]?.focus();
+    } catch (err) {
+      showOtpMsg(err.message || 'Could not resend. Try again.', 'error');
+    }
+    btn.disabled = false; btn.textContent = 'Resend';
+  });
+});
+</script>
+</body>
+</html>

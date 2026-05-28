@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>(function(){if(localStorage.getItem("cc_theme")==="dark")document.documentElement.setAttribute("data-theme","dark");}());</script>
+  <link rel="stylesheet" href="/css/dark.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/campus_logo.svg" type="image/svg+xml">
+  <title>Log in � CampusConnect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .lp-card {
+      background: #ffffff;
+      border-radius: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      box-shadow: none;
+    }
+
+    /* --- Left Panel --------------------------------------- */
+    .lp-left {
+      flex: 0 0 42%;
+      background: linear-gradient(rgba(255,255,255,.38), rgba(255,255,255,.38)), url('/assets/hero-login.jpg') center/cover no-repeat;
+      padding: 52px 48px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .lp-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    .lp-heading {
+      font-size: clamp(1.9rem, 3.2vw, 2.6rem);
+      font-weight: 900;
+      color: #0d0d0d;
+      text-shadow: 0 1px 8px rgba(255,255,255,0.8), 0 2px 20px rgba(255,255,255,0.5);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+    .lp-heading span { color: #111827; }
+
+    .lp-sub {
+      font-size: 0.93rem;
+      color: #1a1a1a;
+      text-shadow: 0 1px 6px rgba(255,255,255,0.7);
+      line-height: 1.65;
+      max-width: 300px;
+    }
+
+    .lp-testimonial {
+      background: rgba(255,255,255,0.82);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 18px;
+      padding: 20px 22px;
+      margin-top: 40px;
+    }
+    .lp-testimonial-text {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: #1f2937;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    .lp-testimonial-author { display: flex; align-items: center; gap: 10px; }
+    .lp-testimonial-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: #00C97F;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.82rem; color: #fff; flex-shrink: 0;
+    }
+    .lp-testimonial-name { font-size: 0.8rem; font-weight: 700; color: #111827; }
+    .lp-testimonial-role { font-size: 0.75rem; color: #4b5563; }
+
+    /* --- Right Panel -------------------------------------- */
+    .lp-right {
+      flex: 1;
+      background: #f7f8f7;
+      padding: 52px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .lp-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 600; color: #888;
+      text-decoration: none; margin-bottom: 32px; transition: color 0.15s;
+    }
+    .lp-back:hover { color: #00C97F; }
+
+    .lp-form-title { font-size: 1.5rem; font-weight: 800; color: #1a1a1a; margin-bottom: 4px; }
+    .lp-form-sub { font-size: 0.88rem; color: #999; margin-bottom: 28px; }
+    .lp-form-sub a { color: #00965d; font-weight: 700; text-decoration: none; }
+    .lp-form-sub a:hover { color: #00C97F; }
+
+    .form-msg {
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .form-msg.error   { background: #fff0f0; border: 1px solid #fcc; color: #c00; }
+    .form-msg.success { background: #f0fff8; border: 1px solid #b3f0d4; color: #00965d; }
+
+    .lp-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .lp-label { font-size: 0.8rem; font-weight: 600; color: #555; }
+
+    .lp-input {
+      width: 100%;
+      background: #ffffff;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      color: #1a1a1a;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+    .lp-input:focus { border-color: #00C97F; box-shadow: 0 0 0 3px rgba(0,201,127,0.1); }
+    .lp-input::placeholder { color: #bbb; }
+
+    .lp-forgot {
+      display: block; text-align: right;
+      font-size: 0.8rem; font-weight: 600;
+      color: #00965d; text-decoration: none;
+      margin-top: -8px; margin-bottom: 6px;
+    }
+    .lp-forgot:hover { color: #00C97F; }
+
+    .lp-btn {
+      width: 100%;
+      background: #00C97F;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 0.95rem; font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+      margin-top: 6px;
+      box-shadow: 0 4px 14px rgba(0,201,127,0.3);
+    }
+    .lp-btn:hover { background: #00b36e; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,201,127,0.35); }
+    .lp-btn:active { transform: translateY(0); }
+    .lp-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    .lp-divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 20px 0; color: #ccc; font-size: 0.78rem; font-weight: 500;
+    }
+    .lp-divider::before, .lp-divider::after { content: ''; flex: 1; height: 1px; background: #e2e2e2; }
+
+    .lp-register {
+      text-align: center; font-size: 0.88rem; color: #888;
+    }
+    .lp-register a { color: #00965d; font-weight: 700; text-decoration: none; }
+    .lp-register a:hover { color: #00C97F; }
+
+    /* Footer */
+    .lp-footer {
+      width: 100%; max-width: 940px;
+      display: flex; justify-content: center; align-items: flex-start;
+      gap: 80px; padding: 4px 0 8px;
+    }
+    .lp-footer-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.25); margin-top: 4px; }
+    .lp-footer-col { display: flex; flex-direction: column; align-items: center; gap: 5px; text-align: center; }
+    .lp-footer-label { font-size: 0.75rem; color: rgba(255,255,255,0.65); font-weight: 500; }
+    .lp-footer-link { font-size: 1rem; font-weight: 700; color: #fff; text-decoration: none; transition: opacity 0.15s; }
+    .lp-footer-link:hover { opacity: 0.75; }
+
+    .lp-mobile-logo { display:none; align-items:center; gap:10px; margin-bottom:28px; text-decoration:none; }
+    .lp-mobile-logo img { height:36px; width:auto; }
+    .lp-mobile-logo-name { font-weight:800; font-size:1rem; color:#111827; letter-spacing:-.02em; }
+
+    @media (max-width: 760px) {
+      html, body { height: auto; overflow-y: auto; }
+      .lp-card { flex-direction: column; height: auto; min-height: 100vh; overflow: visible; }
+      .lp-left { display: none; }
+      .lp-mobile-logo { display:flex; }
+      .lp-right { padding: 40px 28px 48px; height: auto; overflow: visible; flex: 1; }
+      .lp-footer { gap: 36px; flex-wrap: wrap; }
+      .lp-footer-divider { display: none; }
+    }
+    @media (max-width: 520px) {
+      .lp-right { padding: 32px 20px 40px; }
+      .lp-footer { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="lp-card">
+
+  <!-- LEFT -->
+  <div class="lp-left">
+    <div>
+      <a href="/" style="display:block;margin-bottom:32px">
+        <img src="/assets/logo_2.svg" alt="CampusConnect" style="height:44px;width:auto;display:block;filter:none">
+      </a>
+      <h1 class="lp-heading">Welcome back to <span>Campus</span>Connect.</h1>
+      <p class="lp-sub">Log in to your account and keep earning, connecting, and growing your campus hustle.</p>
+    </div>
+
+    <div class="lp-testimonial">
+      <p class="lp-testimonial-text">"My CampusConnect dashboard is the first thing I check every morning. Orders just keep coming in."</p>
+      <div class="lp-testimonial-author">
+        <div class="lp-testimonial-avatar">NZ</div>
+        <div>
+          <div class="lp-testimonial-name">Nomsa Zulu</div>
+          <div class="lp-testimonial-role">Photography, UKZN &bull; 4.9 stars</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="lp-right">
+    <a class="lp-mobile-logo" href="/">
+      <img src="/assets/logo_2.svg" alt="CampusConnect">
+      <span class="lp-mobile-logo-name">CampusConnect</span>
+    </a>
+    <a class="lp-back" href="/">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to home
+    </a>
+
+    <div class="lp-form-title">Log in</div>
+    <p class="lp-form-sub">No account yet? <a href="/pages/get-started.html">Sign up free</a></p>
+
+    <div id="formMsg" class="form-msg"></div>
+
+    <form id="loginForm">
+      <div class="lp-group">
+        <label class="lp-label" for="email">Email address</label>
+        <input class="lp-input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+
+      <div class="lp-group">
+        <label class="lp-label" for="password">Password</label>
+        <input class="lp-input" type="password" id="password" name="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password" required>
+      </div>
+
+      <a class="lp-forgot" href="/pages/forgot-password.html">Forgot password?</a>
+
+      <button class="lp-btn" type="submit" id="submitBtn">Log in</button>
+    </form>
+
+    <div class="lp-divider">or</div>
+
+    <p class="lp-register">New here? <a href="/pages/get-started.html">Create a free account</a></p>
+  </div>
+</div>
+
+<div class="lp-footer">
+  <div class="lp-footer-col">
+    <span class="lp-footer-label">Find a service</span>
+    <a class="lp-footer-link" href="/pages/browse.html">browse@campusconnect.co.za</a>
+  </div>
+  <div class="lp-footer-divider"></div>
+  <div class="lp-footer-col">
+    <span class="lp-footer-label">Sell your skills</span>
+    <a class="lp-footer-link" href="/pages/listing-form.html">sell@campusconnect.co.za</a>
+  </div>
+  <div class="lp-footer-divider"></div>
+  <div class="lp-footer-col">
+    <span class="lp-footer-label">Join the community</span>
+    <a class="lp-footer-link" href="/pages/get-started.html">join@campusconnect.co.za</a>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/config.js"></script>
+<script>window.sbClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON);</script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/login.js"></script>
+</body>
+</html>
