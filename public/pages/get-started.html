@@ -90,15 +90,36 @@
     }
 
     /* Left Panel - Hero Section */
-    .register-left {
-      flex: 1;
-      background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(236,72,153,0.1));
-      padding: 48px 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      border-right: 1px solid rgba(255,255,255,0.08);
-    }
+.register-left {
+  flex: 1;
+  position: relative;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  overflow: hidden;
+}
+
+
+/* Background image */
+.register-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url('../assets/welcome.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+/* Keep content above image */
+.register-left > * {
+  position: relative;
+  z-index: 1;
+}
 
     .logo {
       margin-bottom: 40px;
@@ -576,7 +597,7 @@
     <div class="register-left">
       <div>
         <div class="logo">
-          <img src="/assets/logo_2.svg" alt="CampusConnect">
+          <img src="../assets/logo_2.svg" alt="CampusConnect">
         </div>
         <h1>Let's Make Your Campus Skills <span class="gradient-text">Pay Off.</span></h1>
         <p>Tell us what you need — a tutor, designer, baker, or coder. We'll connect you with the best student talent on your campus.</p>

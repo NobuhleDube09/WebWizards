@@ -88,19 +88,38 @@
       box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
     }
 
-    /* Left Panel */
+    /* Left Panel - with background image */
     .login-left {
       flex: 1;
-      background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(236,72,153,0.1));
+      position: relative;
       padding: 48px 40px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       border-right: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+
+    /* Background image for left panel */
+.login-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/login.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+    /* Ensure content stays above the background image */
+    .login-left > * {
+      position: relative;
+      z-index: 1;
     }
 
     .logo {
-      margin-bottom: 40px;
+      margin-bottom: 80px;
     }
 
     .logo img {
@@ -123,23 +142,25 @@
     }
 
     .login-left p {
-      color: #94a3b8;
+      color: #f1f5f9;
       font-size: 15px;
       line-height: 1.6;
       margin-bottom: 40px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
 
     .testimonial {
-      background: rgba(255,255,255,0.05);
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(2px);
       border-radius: 20px;
       padding: 20px;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
     }
 
     .testimonial-text {
       font-size: 14px;
       font-style: italic;
-      color: #cbd5e1;
+      color: #ffffff;
       margin-bottom: 16px;
       line-height: 1.6;
     }
@@ -171,7 +192,7 @@
 
     .testimonial-role {
       font-size: 12px;
-      color: #94a3b8;
+      color: #cbd5e1;
     }
 
     /* Right Panel */
@@ -379,6 +400,7 @@
         border-right: none;
         border-bottom: 1px solid rgba(255,255,255,0.08);
         padding: 32px 24px;
+        min-height: 300px;
       }
       
       .login-right {
@@ -407,11 +429,11 @@
 
 <div class="login-container">
   <div class="login-card">
-    <!-- Left Panel -->
+    <!-- Left Panel with Background Image -->
     <div class="login-left">
       <div>
         <div class="logo">
-          <img src="/assets/logo_2.svg" alt="CampusConnect">
+          <img src="../assets/logo_2.svg" alt="CampusConnect">
         </div>
         <h1>Welcome back to <span class="gradient-text">CampusConnect</span></h1>
         <p>Log in to your account and keep earning, connecting, and growing your campus hustle.</p>
