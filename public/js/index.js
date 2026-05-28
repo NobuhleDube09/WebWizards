@@ -1,93 +1,185 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  // Render categories
-  const categoriesGrid = document.getElementById('categoriesGrid');
-  if (categoriesGrid) {
-    categoriesGrid.innerHTML = CATEGORIES.map(
-      (c) => `<a class="cat-chip" href="/pages/browse.html?category=${encodeURIComponent(c.label)}">
-        <span class="cat-icon">${c.icon}</span>${c.label}
-      </a>`
-    ).join('');
-  }
+// ============================================
+// CAMPUSCONNECT - LANDING PAGE JAVASCRIPT
+// ============================================
 
-  // Load featured listings
-  const featuredGrid = document.getElementById('featuredListings');
-  if (featuredGrid) {
-    try {
-      const { listings } = await api.get('/api/listings?sort=top-rated&limit=6');
-      featuredGrid.innerHTML = listings.length
-        ? listings.slice(0, 6).map(listingCardHtml).join('')
-        : '<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:2rem">No listings yet — be the first to post!</p>';
-    } catch (err) {
-      featuredGrid.innerHTML = `<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:2rem">Could not load listings.</p>`;
+// ✅ REDIRECT LOGGED-IN USERS TO DASHBOARD
+(function() {
+    const session = localStorage.getItem('cc_session');
+    if (session) {
+        const profile = JSON.parse(localStorage.getItem('cc_profile') || '{}');
+        if (profile?.account_type === 'seller') {
+            window.location.href = '/pages/provider-dashboard.html';
+        } else {
+            window.location.href = '/pages/dashboard.html';
+        }
+        return; // Stop execution
     }
-  }
+})();
 
-  // Load top sellers
-  const topSellersGrid = document.getElementById('topSellers');
-  if (topSellersGrid) {
-    try {
-      const { leaderboard: topSellers } = await api.get('/api/leaderboard');
-      topSellersGrid.innerHTML = (topSellers || []).length
-        ? (topSellers || []).slice(0, 4).map((s) => `
-            <a class="listing-card card-hover" href="/pages/profile.html?id=${s.sellerId}" style="display:block;text-decoration:none">
-              <div class="listing-body" style="display:flex;align-items:center;gap:1rem;padding:1.5rem">
-                ${avatarHtml({ avatar_url: s.avatarUrl, name: s.sellerName }, 'md')}
-                <div style="flex:1;min-width:0">
-                  <div style="font-weight:700;font-size:.97rem">${s.sellerName}</div>
-                  <div style="font-size:.8rem;color:var(--text-secondary);margin:.2rem 0">${s.rankTitle || 'Member'}</div>
-                  <div style="display:flex;align-items:center;gap:.5rem">
-                    ${starsHtml(s.avgRating)}
-                    <span style="font-size:.8rem;color:var(--text-muted)">${Number(s.avgRating||0).toFixed(1)}</span>
-                  </div>
-                </div>
-                <div style="text-align:right;flex-shrink:0">
-                  <div style="font-size:.75rem;color:var(--text-muted)">XP</div>
-                  <div style="font-weight:800;font-size:1.1rem;color:var(--gold)">${s.xp||0}</div>
-                </div>
-              </div>
-            </a>`).join('')
-        : '<p style="color:var(--text-muted);grid-column:1/-1;text-align:center;padding:2rem">No sellers yet.</p>';
-    } catch {
-      topSellersGrid.innerHTML = '';
+// ========== COUNTING ANIMATION ==========
+// ... rest of your code continues here ...
+
+// ========== COUNTING ANIMATION ==========
+function animateNumber(element, target) {
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+            element.textContent = target.toLocaleString() + '+';
+            clearInterval(timer);
+        } else {
+            element.textContent = Math.floor(current).toLocaleString() + '+';
+        }
+    }, 30);
+}
+
+// Start counting when page loads
+setTimeout(() => {
+    animateNumber(document.getElementById('stat1'), 12000);
+    animateNumber(document.getElementById('stat2'), 4800);
+    animateNumber(document.getElementById('stat3'), 35);
+}, 500);
+
+// ========== TESTIMONIALS DATA ==========
+const testimonials = [
+    {
+        text: "“I made R4 500 in my first month selling design work on CampusConnect. It changed how I pay for res.”",
+        name: "Thabo Mokoena",
+        title: "Graphic Design, UJ • Verified Seller"
+    },
+    {
+        text: "“Found a tutor for my coding exam in under 2 hours. The platform is super easy to use!”",
+        name: "Lerato Sithole",
+        title: "Computer Science, Wits • Verified Buyer"
+    },
+    {
+        text: "“As a photography student, I've earned over R8,000 doing grad shoots. Best decision ever!”",
+        name: "Lindiwe Ndlovu",
+        title: "Photography, TUT • Top Seller"
+    },
+    {
+        text: "“CampusConnect helped me find a graphic designer for my startup. Quality work, fair prices.”",
+        name: "Zara ",
+        title: "Business, UCT • Small Business Owner"
     }
-  }
+];
 
-  // Load hero stats
-  try {
-    const { listings: all } = await api.get('/api/listings?limit=1');
-    document.getElementById('statListings').textContent = all?.length ?? '—';
-  } catch { /* non-critical */ }
+let currentTestimonial = 0;
 
-  // AI Matchmaker
-  const aiSearchBtn = document.getElementById('aiSearchBtn');
-  const aiQuery     = document.getElementById('aiQuery');
-  const aiResults   = document.getElementById('aiResults');
+function updateTestimonial(index) {
+    const t = testimonials[index];
+    document.getElementById('testimonialText').textContent = t.text;
+    document.getElementById('testimonialName').textContent = t.name;
+    document.getElementById('testimonialTitle').textContent = t.title;
+}
 
-  const runAiSearch = async () => {
-    const query = aiQuery?.value.trim();
-    if (!query || !aiResults) return;
-    aiResults.style.display = 'flex';
-    aiResults.innerHTML = '<div class="spinner"></div>';
-    try {
-      const { matches } = await api.post('/api/ai/match', { query });
-      if (!matches?.length) {
-        aiResults.innerHTML = '<p style="color:var(--text-muted);font-size:.85rem">No matches found. Try a different request.</p>';
-        return;
-      }
-      aiResults.innerHTML = matches.map((m) => `
-        <a class="ai-result-card" href="/pages/listing.html?id=${m.listingId}" style="text-decoration:none;display:block">
-          <div class="ai-result-top">
-            <span class="ai-result-title">${m.title}</span>
-            <span class="ai-result-price">${formatMoney(m.price)}</span>
-          </div>
-          <div class="ai-result-seller">${m.sellerName}</div>
-          <div class="ai-result-reason">${m.reason || ''}</div>
-        </a>`).join('');
-    } catch (err) {
-      aiResults.innerHTML = `<p style="color:var(--red);font-size:.85rem">${err.message}</p>`;
-    }
-  };
-
-  aiSearchBtn?.addEventListener('click', runAiSearch);
-  aiQuery?.addEventListener('keydown', (e) => { if (e.key === 'Enter') runAiSearch(); });
+document.getElementById('prevTestimonial')?.addEventListener('click', () => {
+    currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+    updateTestimonial(currentTestimonial);
 });
+
+document.getElementById('nextTestimonial')?.addEventListener('click', () => {
+    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+    updateTestimonial(currentTestimonial);
+});
+
+// ========== MOBILE MENU ==========
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        if (mobileMenu.style.display === 'flex') {
+            mobileMenu.style.display = 'none';
+        } else {
+            mobileMenu.style.display = 'flex';
+        }
+    });
+}
+
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        if (mobileMenu) mobileMenu.style.display = 'none';
+    });
+});
+
+// ========== SMOOTH SCROLL TO SECTION ==========
+function scrollToSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+// ========== NAVIGATION LINKS ==========
+document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = link.dataset.page;
+        
+        if (page === 'about') {
+            scrollToSection('aboutSection');
+        } else if (page === 'how-it-works') {
+            scrollToSection('howItWorksSection');
+        } else if (page === 'stories') {
+            scrollToSection('testimonialSection');
+        }
+    });
+});
+
+// ========== CARD NAVIGATION ==========
+
+// Seek Service Card
+document.getElementById('seekServiceCard')?.addEventListener('click', () => {
+    window.location.href = 'pages/get-started.html?role=buy';
+});
+
+// Offer Skills Card
+document.getElementById('offerSkillsCard')?.addEventListener('click', () => {
+    window.location.href = 'pages/get-started.html?role=sell';
+});
+
+// ========== LOGIN NAVIGATION ==========
+
+document.getElementById('loginBtn')?.addEventListener('click', () => {
+    window.location.href = 'pages/login.html';
+});
+
+document.getElementById('mobileLoginBtn')?.addEventListener('click', () => {
+    window.location.href = 'pages/login.html';
+});
+
+// ========== SCROLL EFFECT ==========
+window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(10, 10, 10, 0.98)';
+    } else {
+        navbar.style.background = 'rgba(10, 10, 10, 0.8)';
+    }
+});
+
+// ========== SCROLL ANIMATIONS ==========
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.about-section, .howitworks-section, .testimonial, .cta-section').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'all 0.6s ease';
+    observer.observe(el);
+});
+
+console.log('CampusConnect loaded successfully!');
