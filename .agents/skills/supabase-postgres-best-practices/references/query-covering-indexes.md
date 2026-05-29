@@ -1,3 +1,4 @@
+git push origin main
 ---
 title: Use Covering Indexes to Avoid Table Lookups
 impact: MEDIUM-HIGH
