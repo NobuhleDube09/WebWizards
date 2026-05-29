@@ -1,27 +1,5 @@
-// Add these at the VERY TOP of /js/dashboard.js before everything else
 
-function starsHtml(rating) {
-  const full = Math.floor(rating);
-  const half = rating % 1 >= 0.5;
-  let stars = '';
-  for (let i = 1; i <= 5; i++) {
-    if (i <= full) stars += '★';
-    else if (half && i === full + 1) stars += '½';
-    else stars += '☆';
-  }
-  return `<span class="stars">${stars}</span>`;
-}
-
-function formatRelTime(dateStr) {
-  if (!dateStr) return 'recently';
-  const date = new Date(dateStr);
-  const now = new Date();
-  const diff = Math.floor((now - date) / 1000);
-  if (diff < 60) return 'just now';
-  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
-  return date.toLocaleDateString();
-}
+// Then paste all your existing dashboard.js code after these functions
 
 /* ── Reusable confirm modal (replaces browser confirm/prompt) ──────────────── */
 function showConfirm(message, { confirmText = 'Confirm', danger = false } = {}) {
@@ -33,7 +11,7 @@ function showConfirm(message, { confirmText = 'Confirm', danger = false } = {}) 
         <p style="font-size:.95rem;font-weight:600;color:#111827;margin-bottom:22px;line-height:1.5">${message}</p>
         <div style="display:flex;gap:10px;justify-content:flex-end">
           <button id="_cc_cancel" style="padding:9px 20px;border-radius:10px;border:1.5px solid #e5e7eb;background:#fff;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;color:#374151">Cancel</button>
-          <button id="_cc_ok" style="padding:9px 20px;border-radius:10px;border:none;background:${danger ? '#ef4444' : '#00C97F'};color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit">${confirmText}</button>
+          <button id="_cc_ok" style="padding:9px 20px;border-radius:10px;border:none;background:${danger ? '#ef4444' : '#f97316'};color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit">${confirmText}</button>
         </div>
       </div>`;
     document.body.appendChild(overlay);
@@ -61,7 +39,7 @@ function showPrompt(fields) {
         ${rows}
         <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:6px">
           <button id="_pf_cancel" style="padding:9px 20px;border-radius:10px;border:1.5px solid #e5e7eb;background:#fff;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit;color:#374151">Cancel</button>
-          <button id="_pf_ok" style="padding:9px 20px;border-radius:10px;border:none;background:#00C97F;color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit">Accept</button>
+          <button id="_pf_ok" style="padding:9px 20px;border-radius:10px;border:none;background:#f97316;color:#fff;font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit">Accept</button>
         </div>
       </div>`;
     document.body.appendChild(overlay);
