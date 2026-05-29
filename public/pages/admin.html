@@ -87,7 +87,7 @@
     }
 
     .a-sidebar-logo {
-      padding: 24px 20px 20px;
+      padding: 24px 120px 20px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -758,309 +758,318 @@
   </style>
 </head>
 <body>
-
-<div class="bg-animation">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-
 <div class="a-shell">
-  <!-- Sidebar -->
+
+  <!-- SIDEBAR -->
   <aside class="a-sidebar">
     <div class="a-sidebar-logo">
-      <a href="/" style="display:block;margin-bottom:32px">
-        <img src="../assets/logo_2.svg" alt="CampusConnect" style="height:44px;width:auto;display:block;filter:none">
-      </a>
+      <img src="../assets/logo_2.svg" alt="CampusConnect">
       <span>CampusConnect</span>
     </div>
     <div class="a-admin-chip">Admin Panel</div>
 
-    <div class="a-sidebar-label">MANAGE</div>
+    <div class="a-sidebar-label">Manage</div>
     <nav class="a-sidebar-nav">
       <button class="a-nav-item active" data-tab="overview">
-        <span class="a-nav-icon"><i class="fas fa-chart-pie"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
         <span>Overview</span>
       </button>
       <button class="a-nav-item" data-tab="listings">
-        <span class="a-nav-icon"><i class="fas fa-list"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span>
         <span>Listings</span>
         <span class="a-nav-badge" id="pendingBadge" style="display:none">0</span>
       </button>
       <button class="a-nav-item" data-tab="users">
-        <span class="a-nav-icon"><i class="fas fa-users"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
         <span>Users</span>
       </button>
       <button class="a-nav-item" data-tab="reports">
-        <span class="a-nav-icon"><i class="fas fa-flag"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
         <span>Reports</span>
         <span class="a-nav-badge" id="reportsBadge" style="display:none">0</span>
       </button>
       <button class="a-nav-item" data-tab="categories">
-        <span class="a-nav-icon"><i class="fas fa-tags"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
         <span>Categories</span>
       </button>
       <button class="a-nav-item" data-tab="announcements">
-        <span class="a-nav-icon"><i class="fas fa-bullhorn"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"/></svg></span>
         <span>Announcements</span>
       </button>
 
       <div class="a-sidebar-divider"></div>
 
       <button class="a-nav-item" data-tab="log">
-        <span class="a-nav-icon"><i class="fas fa-history"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
         <span>Activity Log</span>
       </button>
       <a class="a-nav-item" href="/pages/dashboard.html">
-        <span class="a-nav-icon"><i class="fas fa-tachometer-alt"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
         <span>My Dashboard</span>
       </a>
       <button class="a-nav-item danger" id="logoutBtn">
-        <span class="a-nav-icon"><i class="fas fa-sign-out-alt"></i></span>
+        <span class="a-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
         <span>Log out</span>
       </button>
     </nav>
 
-    <div class="a-sidebar-footer">
-      <div class="avatar-placeholder" id="sidebarAvatar">AD</div>
-      <div>
-        <div class="a-sf-name" id="sidebarName">Admin User</div>
+    <div class="a-sidebar-footer" id="sidebarProfile">
+      <div id="sidebarAvatarWrap"></div>
+      <div style="min-width:0">
+        <div class="a-sf-name" id="sidebarName"></div>
         <div class="a-sf-role">Administrator</div>
       </div>
     </div>
   </aside>
 
-  <!-- Main Content -->
+  <!-- MAIN -->
   <main class="a-main">
 
-    <!-- Overview Tab -->
+    <!-- OVERVIEW -->
     <section id="tab-overview" class="a-section active">
       <div class="a-page-header">
         <div>
-          <div class="a-page-eyebrow">Admin Dashboard</div>
+          <div class="a-page-eyebrow">Admin</div>
           <h1>Platform Overview</h1>
         </div>
         <button class="a-btn a-btn-ghost" onclick="loadOverview()">
-          <i class="fas fa-sync-alt"></i> Refresh
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Refresh
         </button>
       </div>
 
       <div class="a-stat-grid">
-        <div class="a-stat-card sc-blue">
-          <div class="sc-blob"></div>
-          <div class="sc-label">Total Users</div>
-          <div class="sc-value" id="stat-users">1,234</div>
-          <div class="sc-sub">Registered students</div>
-        </div>
-        <div class="a-stat-card sc-green">
-          <div class="sc-blob"></div>
-          <div class="sc-label">Total Listings</div>
-          <div class="sc-value" id="stat-listings">567</div>
-          <div class="sc-sub">Active services</div>
-        </div>
-        <div class="a-stat-card sc-amber">
-          <div class="sc-blob"></div>
-          <div class="sc-label">Pending Review</div>
-          <div class="sc-value" id="stat-pending">23</div>
-          <div class="sc-sub">Awaiting moderation</div>
-        </div>
-        <div class="a-stat-card sc-red">
-          <div class="sc-blob"></div>
-          <div class="sc-label">Open Reports</div>
-          <div class="sc-value" id="stat-reports">5</div>
-          <div class="sc-sub">Flagged content</div>
-        </div>
+        <div class="a-stat-card sc-blue"><div class="sc-blob"></div><div class="sc-label">Total Users</div><div class="sc-value" id="stat-users">0</div><div class="sc-sub">Registered students</div></div>
+        <div class="a-stat-card sc-green"><div class="sc-blob"></div><div class="sc-label">Total Listings</div><div class="sc-value" id="stat-listings">0</div><div class="sc-sub">All service listings</div></div>
+        <div class="a-stat-card sc-amber"><div class="sc-blob"></div><div class="sc-label">Pending Review</div><div class="sc-value" id="stat-pending">0</div><div class="sc-sub">Awaiting moderation</div></div>
+        <div class="a-stat-card sc-red"><div class="sc-blob"></div><div class="sc-label">Open Reports</div><div class="sc-value" id="stat-reports">0</div><div class="sc-sub">Flagged content</div></div>
+        <div class="a-stat-card sc-purple"><div class="sc-blob"></div><div class="sc-label">Total Orders</div><div class="sc-value" id="stat-orders">0</div><div class="sc-sub">Across all time</div></div>
+        <div class="a-stat-card sc-green"><div class="sc-blob"></div><div class="sc-label">New Signups (7d)</div><div class="sc-value" id="stat-signups">0</div><div class="sc-sub">Last 7 days</div></div>
       </div>
 
-      <div class="a-card">
-        <div class="a-card-header">
-          <div>
-            <div class="a-card-title">Recent Activity</div>
-            <div class="a-card-sub">Latest admin actions</div>
+      <div class="a-overview-grid">
+        <div class="a-card">
+          <div class="a-card-header">
+            <div><div class="a-card-title">Recent Signups</div><div class="a-card-sub">Newest students on the platform</div></div>
+          </div>
+          <div class="a-table-wrap">
+            <table class="a-table">
+              <thead><tr><th>Student</th><th>University</th><th>Verified</th><th>Joined</th></tr></thead>
+              <tbody id="recentSignupsBody"><tr><td colspan="4"><div class="a-empty"><p>Loading...</p></div></td></tr></tbody>
+            </table>
           </div>
         </div>
-        <div style="padding: 0 20px 20px">
-          <div id="activityFeed">
-            <div class="a-activity-item">
-              <div class="a-activity-dot"></div>
-              <div class="a-activity-text">New user registration: john@example.com</div>
-              <div class="a-activity-time">5 min ago</div>
-            </div>
-            <div class="a-activity-item">
-              <div class="a-activity-dot"></div>
-              <div class="a-activity-text">Listing approved: Math Tutoring Service</div>
-              <div class="a-activity-time">1 hour ago</div>
-            </div>
-            <div class="a-activity-item">
-              <div class="a-activity-dot"></div>
-              <div class="a-activity-text">New report filed for inappropriate content</div>
-              <div class="a-activity-time">3 hours ago</div>
-            </div>
+        <div class="a-card">
+          <div class="a-card-header">
+            <div><div class="a-card-title">Recent Activity</div><div class="a-card-sub">Admin actions</div></div>
+          </div>
+          <div style="padding:4px 16px 12px" id="activityFeed">
+            <div class="a-empty"><p>No activity yet</p></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Listings Tab -->
+    <!-- LISTINGS -->
     <section id="tab-listings" class="a-section">
       <div class="a-page-header">
-        <div>
-          <div class="a-page-eyebrow">Moderation</div>
-          <h1>Service Listings</h1>
+        <div><div class="a-page-eyebrow">Moderation</div><h1>Listings</h1></div>
+        <div style="display:flex;gap:8px">
+          <button class="a-btn a-btn-ghost a-btn-sm" onclick="adminExport('admin-listings','csv')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+          <button class="a-btn a-btn-ghost a-btn-sm" onclick="adminExport('admin-listings','pdf')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Export PDF
+          </button>
         </div>
       </div>
       <div class="a-card">
         <div class="a-card-header">
-          <div class="a-filter-row">
+          <div class="a-filter-row" id="listingsFilterRow">
             <button class="a-filter-pill active" data-status="pending">Pending</button>
             <button class="a-filter-pill" data-status="approved">Approved</button>
             <button class="a-filter-pill" data-status="featured">Featured</button>
+            <button class="a-filter-pill" data-status="rejected">Rejected</button>
             <button class="a-filter-pill" data-status="all">All</button>
           </div>
           <div class="a-search">
-            <i class="fas fa-search" style="color: #64748b;"></i>
-            <input type="text" placeholder="Search listings...">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-3);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="listingsSearch" placeholder="Search listings...">
+          </div>
+        </div>
+        <div class="a-bulk-bar" id="bulkBar">
+          <span><span class="a-bulk-count" id="bulkCount">0</span> selected</span>
+          <div class="a-bulk-actions">
+            <button class="a-btn a-btn-success a-btn-sm" onclick="bulkAction('approve')">Approve All</button>
+            <button class="a-btn a-btn-danger a-btn-sm" onclick="bulkReject()">Reject All</button>
+            <button class="a-btn a-btn-ghost a-btn-sm" onclick="clearSelection()">Clear</button>
           </div>
         </div>
         <div class="a-table-wrap">
           <table class="a-table">
-            <thead>
-              <tr>
-                <th>Listing</th>
-                <th>Seller</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="listingsBody">
-              <tr>
-                <td><strong>Math Tutoring</strong><br><small>Expert math help</small></td>
-                <td>John Doe</td>
-                <td>Tutoring</td>
-                <td>R250/hr</td>
-                <td><span class="s-badge pending">Pending</span></td>
-                <td>
-                  <button class="a-btn a-btn-success a-btn-sm">Approve</button>
-                  <button class="a-btn a-btn-danger a-btn-sm">Reject</button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Photography Services</strong><br><small>Event photos</small></td>
-                <td>Jane Smith</td>
-                <td>Photography</td>
-                <td>R500/session</td>
-                <td><span class="s-badge approved">Approved</span></td>
-                <td>
-                  <button class="a-btn a-btn-primary a-btn-sm">Feature</button>
-                  <button class="a-btn a-btn-danger a-btn-sm">Remove</button>
-                </td>
-              </tr>
-            </tbody>
+            <thead><tr>
+              <th class="cb"><input type="checkbox" id="selectAll"></th>
+              <th>Listing</th><th>Seller</th><th>Category</th><th>Price</th><th>Status</th><th>Date</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="listingsBody"><tr><td colspan="8"><div class="a-empty"><p>Loading...</p></div></td></tr></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- Users Tab -->
+    <!-- USERS -->
     <section id="tab-users" class="a-section">
       <div class="a-page-header">
-        <div>
-          <div class="a-page-eyebrow">Management</div>
-          <h1>Users</h1>
+        <div><div class="a-page-eyebrow">Management</div><h1>Users</h1></div>
+        <div style="display:flex;gap:8px">
+          <button class="a-btn a-btn-ghost a-btn-sm" onclick="adminExport('admin-users','csv')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export CSV
+          </button>
+          <button class="a-btn a-btn-ghost a-btn-sm" onclick="adminExport('admin-users','pdf')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Export PDF
+          </button>
         </div>
       </div>
       <div class="a-card">
         <div class="a-card-header">
-          <div class="a-filter-row">
+          <div class="a-filter-row" id="usersFilterRow">
             <button class="a-filter-pill active" data-status="all">All</button>
             <button class="a-filter-pill" data-status="active">Active</button>
             <button class="a-filter-pill" data-status="suspended">Suspended</button>
           </div>
           <div class="a-search">
-            <i class="fas fa-search" style="color: #64748b;"></i>
-            <input type="text" placeholder="Search users...">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-3);flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="usersSearch" placeholder="Search by name or email...">
           </div>
         </div>
         <div class="a-table-wrap">
           <table class="a-table">
-            <thead>
-              <tr>
-                <th>Student</th>
-                <th>Email</th>
-                <th>Joined</th>
-                <th>Listings</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="usersBody">
-              <tr>
-                <td>
-                  <div style="display:flex;align-items:center;gap:10px">
-                    <div class="avatar-placeholder" style="width:32px;height:32px;font-size:12px">JD</div>
-                    <strong>John Doe</strong>
-                  </div>
-                </td>
-                <td>john@example.com</td>
-                <td>2 months ago</td>
-                <td>3</td>
-                <td><span class="s-badge active">Active</span></td>
-                <td>
-                  <button class="a-btn a-btn-danger a-btn-sm">Suspend</button>
-                  <button class="a-btn a-btn-primary a-btn-sm">View</button>
-                </td>
-              </tr>
-            </tbody>
+            <thead><tr><th>Student</th><th>University</th><th>Joined</th><th>Listings</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="usersBody"><tr><td colspan="6"><div class="a-empty"><p>Loading...</p></div></td></tr></tbody>
           </table>
         </div>
       </div>
     </section>
 
-    <!-- Reports Tab -->
+    <!-- REPORTS -->
     <section id="tab-reports" class="a-section">
       <div class="a-page-header">
-        <div>
-          <div class="a-page-eyebrow">Disputes</div>
-          <h1>Reports</h1>
+        <div><div class="a-page-eyebrow">Disputes</div><h1>Reports &amp; Exports</h1></div>
+      </div>
+      <!-- Data export cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:24px">
+        <div style="background:#fff;border:1.5px solid #e5e7eb;border-radius:14px;padding:18px">
+          <div style="font-size:1.3rem;margin-bottom:8px">👥</div>
+          <div style="font-weight:700;font-size:.9rem;color:#111827;margin-bottom:2px">All Users</div>
+          <div style="font-size:.75rem;color:#9ca3af;margin-bottom:12px">Full user registry</div>
+          <div style="display:flex;gap:6px">
+            <button class="a-btn a-btn-ghost a-btn-sm" onclick="adminExport('admin-users','csv')">CSV</button>
+            <button class="a-btn a-btn-primary a-btn-sm" onclick="adminExport('admin-users','pdf')">PDF</button>
+          </div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e5e7eb;border-radius:14px;padding:18px">
+          <div style="font-size:1.3rem;margin-bottom:8px">📋</div>
+          <div style="font-weight:700;font-size:.9rem;color:#111827;margin-bottom:2px">All Listings</div>
+          <div style="font-size:.75rem;color:#9ca3af;margin-bottom:12px">Every service listed</div>
+          <div style="display:flex;gap:6px">
+            <button class="a-btn a-btn-ghost a-btn-sm" onclick="adminExport('admin-listings','csv')">CSV</button>
+            <button class="a-btn a-btn-primary a-btn-sm" onclick="adminExport('admin-listings','pdf')">PDF</button>
+          </div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e5e7eb;border-radius:14px;padding:18px">
+          <div style="font-size:1.3rem;margin-bottom:8px">📦</div>
+          <div style="font-weight:700;font-size:.9rem;color:#111827;margin-bottom:2px">All Bookings</div>
+          <div style="font-size:.75rem;color:#9ca3af;margin-bottom:12px">All orders platform-wide</div>
+          <div style="display:flex;gap:6px">
+            <button class="a-btn a-btn-ghost a-btn-sm" onclick="adminExport('admin-bookings','csv')">CSV</button>
+            <button class="a-btn a-btn-primary a-btn-sm" onclick="adminExport('admin-bookings','pdf')">PDF</button>
+          </div>
         </div>
       </div>
+      <div style="font-size:.88rem;font-weight:700;color:#111827;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f3f5f4">Dispute Reports</div>
+      <div class="a-filter-row" id="reportsFilterRow" style="margin-bottom:16px">
+        <button class="a-filter-pill active" data-status="open">Open</button>
+        <button class="a-filter-pill" data-status="resolved">Resolved</button>
+        <button class="a-filter-pill" data-status="all">All</button>
+      </div>
+      <div id="reportsContainer"><div class="a-empty"><p>Loading...</p></div></div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section id="tab-categories" class="a-section">
+      <div class="a-page-header">
+        <div><div class="a-page-eyebrow">Platform</div><h1>Categories</h1></div>
+        <button class="a-btn a-btn-primary" onclick="openAddCategory()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Category
+        </button>
+      </div>
+      <div class="a-card" id="categoriesCard"><div class="a-empty"><p>Loading...</p></div></div>
+    </section>
+
+    <!-- ANNOUNCEMENTS -->
+    <section id="tab-announcements" class="a-section">
+      <div class="a-page-header">
+        <div><div class="a-page-eyebrow">Broadcast</div><h1>Announcements</h1></div>
+        <button class="a-btn a-btn-primary" onclick="openAddAnnouncement()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Announcement
+        </button>
+      </div>
+      <div class="a-card" id="announcementsCard"><div class="a-empty"><p>Loading...</p></div></div>
+    </section>
+
+    <!-- ACTIVITY LOG -->
+    <section id="tab-log" class="a-section">
+      <div class="a-page-header">
+        <div><div class="a-page-eyebrow">Audit</div><h1>Activity Log</h1></div>
+        <button class="a-btn a-btn-ghost" onclick="loadLog()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Refresh
+        </button>
+      </div>
       <div class="a-card">
-        <div class="a-card-header">
-          <div class="a-filter-row">
-            <button class="a-filter-pill active" data-status="open">Open</button>
-            <button class="a-filter-pill" data-status="resolved">Resolved</button>
-          </div>
-        </div>
-        <div id="reportsContainer">
-          <div style="padding:20px">
-            <div class="a-activity-item">
-              <div class="a-activity-dot" style="background:#fbbf24"></div>
-              <div class="a-activity-text"><strong>Report #1</strong> - Inappropriate content in listing "Party Photography"</div>
-              <div class="a-activity-time">Reported by: user123 • 2 days ago</div>
-            </div>
-            <div class="a-activity-item">
-              <div class="a-activity-dot" style="background:#f87171"></div>
-              <div class="a-activity-text"><strong>Report #2</strong> - User harassment in messages</div>
-              <div class="a-activity-time">Reported by: jane_doe • 5 days ago</div>
-            </div>
-          </div>
+        <div class="a-table-wrap">
+          <table class="a-table">
+            <thead><tr><th>Admin</th><th>Action</th><th>Target</th><th>Details</th><th>Time</th></tr></thead>
+            <tbody id="logBody"><tr><td colspan="5"><div class="a-empty"><p>Loading...</p></div></td></tr></tbody>
+          </table>
         </div>
       </div>
     </section>
 
-    <!-- Categories Tab -->
-    <section id="tab-categories" class="a-section">
-      <div class="a-page-header">
-        <div>
-          <div class="a-page-eyebrow">Platform</div>
-          <h1>Categories</h1>
-        </div>
-        <button class="a-btn a-btn-primary" onclick="openAddCategory()">
-          <i class="fas fa-plus"></i> Add Category
-        </button>
-      </div>
-      <div class="a-card" id="categoriesCard">
-        <div style
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="a-modal-overlay" id="modalOverlay">
+  <div class="a-modal">
+    <div class="a-modal-header">
+      <h3 id="modalTitle">Confirm</h3>
+      <button class="a-modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="a-modal-body" id="modalBody"></div>
+    <div class="a-modal-footer">
+      <button class="a-btn a-btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="a-btn a-btn-primary" id="modalConfirmBtn">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/js/config.js"></script>
+<script>window.sbClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON);</script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>
