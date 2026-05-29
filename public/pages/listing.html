@@ -587,132 +587,140 @@
   </style>
 </head>
 <body>
-<div class="bg-animation">
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-</div>
-
 <div class="b-shell">
+
   <aside class="b-sidebar">
     <a class="b-sidebar-logo" href="/">
-      <img src="../assets/logo_2.svg" alt="CampusConnect">
+      <img src="/assets/logo_2.svg" alt="CampusConnect">
       <span class="b-logo-name">CampusConnect</span>
     </a>
-    <div class="b-sidebar-section">NAVIGATE</div>
+    <div class="b-sidebar-section">Navigate</div>
     <nav class="b-sidebar-nav">
       <a class="b-nav-item" href="/pages/browse.html">
-        <span class="b-nav-icon"><i class="fas fa-search"></i></span>
+        <span class="b-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
         <span>Browse</span>
       </a>
       <a class="b-nav-item" href="/pages/dashboard.html">
-        <span class="b-nav-icon"><i class="fas fa-th-large"></i></span>
+        <span class="b-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></span>
         <span>Dashboard</span>
       </a>
       <a class="b-nav-item" href="/pages/inbox.html">
-        <span class="b-nav-icon"><i class="fas fa-envelope"></i></span>
+        <span class="b-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
         <span>Inbox</span>
       </a>
       <a class="b-nav-item" href="/pages/leaderboard.html">
-        <span class="b-nav-icon"><i class="fas fa-trophy"></i></span>
+        <span class="b-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
         <span>Leaderboard</span>
       </a>
       <div class="b-sidebar-divider"></div>
       <a class="b-nav-item" href="/pages/listing-form.html">
-        <span class="b-nav-icon"><i class="fas fa-plus-circle"></i></span>
+        <span class="b-nav-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         <span>List a service</span>
       </a>
-      <div class="logout-item">
-        <div class="b-sidebar-divider"></div>
-        <a class="b-nav-item" id="logoutBtn" href="#">
-          <span class="b-nav-icon"><i class="fas fa-sign-out-alt"></i></span>
-          <span>Log out</span>
-        </a>
-      </div>
     </nav>
-    <div class="b-sidebar-footer" id="sidebarFooter" style="display: none;">
+    <div class="b-sidebar-footer" id="sidebarFooter" style="display:none">
       <div id="sidebarAvatarWrap"></div>
       <div class="b-sf-info">
         <div class="b-sf-name" id="sidebarName"></div>
-        <div class="b-sf-sub" id="sidebarRank"></div>
+        <div class="b-sf-sub"  id="sidebarRank"></div>
       </div>
     </div>
   </aside>
 
   <main class="b-main">
     <div class="b-main-header">
-      <a href="/pages/browse.html" class="back-btn">
-        <i class="fas fa-arrow-left"></i> Back to browse
+      <a href="/pages/browse.html" class="btn btn-ghost btn-sm" style="display:inline-flex;align-items:center;gap:6px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to browse
       </a>
     </div>
     <div class="b-scroll">
-      <div id="listingContent"></div>
-      
+      <div id="listingContent">
+        <div class="loading-wrap"><div class="spinner"></div></div>
+      </div>
       <template id="listingTemplate">
+        <!-- Listing Header -->
+        <div style="margin-bottom:20px">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            <span id="listingCatBadge" style="background:#e6fff4;color:#00965d;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:100px;border:1px solid rgba(0,201,127,.25)"></span>
+            <span id="listingAvailBadge" style="font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:100px"></span>
+          </div>
+          <h1 id="listingTitle" style="font-size:1.6rem;font-weight:900;color:#111827;margin:0 0 8px;letter-spacing:-.02em;line-height:1.25"></h1>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:6px" id="listingHeaderRating"></div>
+            <div style="display:flex;align-items:center;gap:8px" id="listingHeaderMeta"></div>
+          </div>
+        </div>
+
         <div class="listing-detail-grid">
+          <!-- LEFT COLUMN -->
           <div>
-            <div style="margin-bottom:20px">
-              <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-                <span id="listingCatBadge" class="cat-badge"></span>
-                <span id="listingAvailBadge" class="avail-badge"><i class="fas fa-clock"></i> <span></span></span>
-              </div>
-              <h1 id="listingTitle" style="font-size:1.8rem;font-weight:900;margin:0 0 12px;letter-spacing:-.02em;"></h1>
-              <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
-                <div id="listingHeaderRating" class="stars"></div>
-                <div id="listingHeaderMeta" style="color:#94a3b8;font-size:14px"></div>
-              </div>
+            <!-- Image Gallery -->
+            <div style="background:#fff;border-radius:18px;border:1px solid #e5e7eb;overflow:hidden;margin-bottom:18px" id="galleryWrap">
+              <img id="mainImg" style="width:100%;height:340px;object-fit:cover;display:block" src="" alt="">
+              <div id="thumbs" style="display:flex;gap:8px;padding:12px 16px;overflow-x:auto;border-top:1px solid #f3f5f4"></div>
             </div>
 
-            <div class="info-card" style="padding:0;margin-bottom:24px">
-              <img id="mainImg" class="main-img" src="" alt="">
-              <div id="thumbs" class="thumb-row"></div>
+            <!-- About -->
+            <div style="background:#fff;border-radius:18px;border:1px solid #e5e7eb;padding:24px;margin-bottom:18px">
+              <h2 style="font-size:1rem;font-weight:800;color:#111827;margin:0 0 14px">About this service</h2>
+              <p id="listingDesc" style="font-size:.9rem;color:#4b5563;line-height:1.8;margin:0 0 18px"></p>
+
+              <!-- Service detail chips -->
+              <div style="display:flex;gap:10px;flex-wrap:wrap" id="serviceChips"></div>
             </div>
 
-            <div class="info-card">
-              <h2>About this service</h2>
-              <div class="info-card-content">
-                <p id="listingDesc" style="color:#cbd5e6;line-height:1.7;font-size:14px;margin-bottom:18px"></p>
-                <div id="serviceChips" class="chips-wrap"></div>
-              </div>
+            <!-- Seller card -->
+            <div style="background:#fff;border-radius:18px;border:1px solid #e5e7eb;padding:20px;margin-bottom:18px" id="sellerCardWrap">
+              <h2 style="font-size:.85rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#9ca3af;margin:0 0 16px">About the seller</h2>
+              <div id="sellerCardContent" style="display:flex;align-items:flex-start;gap:14px"></div>
             </div>
 
-            <div class="info-card">
-              <h2>About the seller</h2>
-              <div class="info-card-content">
-                <div id="sellerCardContent" class="seller-flex"></div>
-                <p id="sellerBio" style="margin-top:18px;font-size:13px;color:#9ca3af"></p>
-              </div>
-            </div>
-
-            <div class="info-card">
-              <h2>Reviews</h2>
-              <div class="info-card-content" id="reviewsList"></div>
+            <!-- Reviews -->
+            <div style="background:#fff;border-radius:18px;border:1px solid #e5e7eb;padding:24px">
+              <h2 style="font-size:1rem;font-weight:800;color:#111827;margin:0 0 16px">Reviews</h2>
+              <div id="reviewsList"></div>
             </div>
           </div>
 
+          <!-- RIGHT COLUMN — Booking card -->
           <div>
-            <div class="booking-card">
-              <div id="bookingPrice" class="price"></div>
-              <div id="bookingPriceType" style="font-size:14px;color:#94a3b8;margin-top:4px"></div>
-              <div class="divider"></div>
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px">
-                <span id="bookingStars" class="stars"></span>
-                <span id="bookingRatingText" style="font-size:13px;color:#cbd5e6"></span>
+            <div class="booking-card" style="border-radius:20px;border:1px solid #e5e7eb;box-shadow:0 4px 24px rgba(0,0,0,.07);position:sticky;top:20px">
+              <!-- Price -->
+              <div style="margin-bottom:16px">
+                <div id="bookingPrice" style="font-size:2rem;font-weight:900;color:#111827;letter-spacing:-.03em"></div>
+                <div id="bookingPriceType" style="font-size:.8rem;color:#9ca3af;margin-top:2px"></div>
               </div>
-              <div id="bookingSeller" style="display:flex;align-items:center;gap:12px;margin-bottom:18px"></div>
-              <div class="divider"></div>
-              
-              <label>Notes / requirements</label>
-              <textarea id="bookingNotes" class="booking-textarea" rows="3" placeholder="Describe what you need..."></textarea>
-              
-              <label style="margin-top:14px">Scheduled for (optional)</label>
-              <input type="datetime-local" id="bookingDate" class="booking-input">
-              
-              <button id="bookBtn" class="btn-primary">Book this service</button>
-              <button id="msgBtn" class="btn-outline">Message seller</button>
-              
-              <p style="font-size:11px;text-align:center;margin-top:16px;color:#6c7a91">
+
+              <!-- Rating row -->
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:18px">
+                <span id="bookingStars"></span>
+                <span style="font-size:.83rem;color:#4b5563" id="bookingRatingText"></span>
+              </div>
+
+              <hr style="border:none;border-top:1px solid #f3f5f4;margin:0 0 16px">
+
+              <!-- Seller -->
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px" id="bookingSeller"></div>
+
+              <hr style="border:none;border-top:1px solid #f3f5f4;margin:0 0 18px">
+
+              <!-- Booking form -->
+              <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:16px">
+                <div>
+                  <label style="display:block;font-size:.77rem;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em">Notes / requirements</label>
+                  <textarea id="bookingNotes" rows="3" placeholder="Describe what you need…" style="width:100%;padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:.88rem;font-family:'Inter',sans-serif;resize:vertical;box-sizing:border-box;outline:none;transition:border .15s" onfocus="this.style.borderColor='#00C97F'" onblur="this.style.borderColor='#e5e7eb'"></textarea>
+                </div>
+                <div>
+                  <label style="display:block;font-size:.77rem;font-weight:700;color:#374151;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em">Scheduled for (optional)</label>
+                  <input type="datetime-local" id="bookingDate" style="width:100%;padding:10px 12px;border:1.5px solid #e5e7eb;border-radius:10px;font-size:.88rem;font-family:'Inter',sans-serif;box-sizing:border-box;outline:none;transition:border .15s" onfocus="this.style.borderColor='#00C97F'" onblur="this.style.borderColor='#e5e7eb'">
+                </div>
+              </div>
+
+              <button class="btn btn-primary w-full btn-lg" id="bookBtn" style="font-size:.95rem;font-weight:800;padding:14px;border-radius:12px;letter-spacing:-.01em">Book this service</button>
+              <button class="btn btn-ghost w-full mt-2" id="msgBtn" style="font-size:.88rem;padding:12px;border-radius:12px">💬 Message seller</button>
+
+              <p style="font-size:.73rem;color:#9ca3af;text-align:center;margin-top:12px;line-height:1.6">
                 🔒 You won't be charged until the seller confirms your booking.
               </p>
             </div>
@@ -721,8 +729,9 @@
       </template>
     </div>
   </main>
-</div>
 
+</div>
+<div id="toast-container"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="/js/config.js"></script>
 <script>window.sbClient = supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON);</script>
@@ -730,5 +739,24 @@
 <script src="/js/auth.js"></script>
 <script src="/js/common.js"></script>
 <script src="/js/listing.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      if (!window.Auth?.isLoggedIn?.()) return;
+      const user = await window.Auth.getProfile();
+      if (!user) return;
+      const footer   = document.getElementById('sidebarFooter');
+      const avatarEl = document.getElementById('sidebarAvatarWrap');
+      const nameEl   = document.getElementById('sidebarName');
+      const rankEl   = document.getElementById('sidebarRank');
+      if (footer && avatarEl && nameEl) {
+        avatarEl.innerHTML = window.avatarHtml ? window.avatarHtml(user, 'sm') : '';
+        nameEl.textContent = user.name || 'User';
+        if (rankEl) rankEl.textContent = user.rank || '';
+        footer.style.display = 'flex';
+      }
+    } catch (_) {}
+  });
+</script>
 </body>
 </html>
