@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CampusConnect - South Africa's #1 Student Marketplace</title>
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
 
 <!-- Animated Background -->
@@ -18,26 +25,36 @@
     <div></div>
 </div>
 
-<!-- Navbar -->
+<!-- ================= NAVBAR ================= -->
 <nav class="navbar">
+
     <div class="logo">
-        <a href="/" style="display:block;margin-bottom:32px">
-        <img src="assets/logo_2.svg" alt="CampusConnect" style="height:44px;width:auto;display:block;filter:none">
-      </a>
+        <a href="/">
+            <img src="assets/logo_2.svg" alt="CampusConnect" style="height:44px;width:auto;">
+        </a>
         <span>CampusConnect</span>
     </div>
+
     <div class="nav-links">
         <a href="#" data-page="about">About</a>
         <a href="#" data-page="how-it-works">How It Works</a>
         <a href="#" data-page="stories">Success Stories</a>
+
         <button class="login-btn" id="loginBtn">Log in</button>
+
+        <!-- THEME TOGGLE -->
+        <button id="themeToggleBtn" class="theme-toggle">
+            <i class="fas fa-moon"></i>
+        </button>
     </div>
+
     <div class="mobile-menu-btn" id="mobileMenuBtn">
         <i class="fas fa-bars"></i>
     </div>
+
 </nav>
 
-<!-- Mobile Menu -->
+<!-- ================= MOBILE MENU ================= -->
 <div class="mobile-menu" id="mobileMenu">
     <a href="#" data-page="about">About</a>
     <a href="#" data-page="how-it-works">How It Works</a>
@@ -45,53 +62,79 @@
     <button class="login-btn-mobile" id="mobileLoginBtn">Log in</button>
 </div>
 
-<!-- Hero Section -->
+<!-- ================= HERO ================= -->
 <section class="hero" id="homeSection">
+
     <div class="hero-content">
         <div class="hero-badge">
             <i class="fas fa-crown"></i> South Africa's #1 Student Marketplace
         </div>
-        <h1>Your campus, your skills,<br>your <span class="gradient-text">success</span>.</h1>
-        <p>Join thousands of students buying, selling, and growing together — all on one platform built for campus life.</p>
-        
+
+        <h1>
+            Your campus, your skills,<br>
+            your <span class="gradient-text">success</span>.
+        </h1>
+
+        <p>
+            Join thousands of students buying, selling, and growing together —
+            all on one platform built for campus life.
+        </p>
+
         <div class="stats">
             <div class="stat">
                 <div class="stat-number" id="stat1">0</div>
                 <div class="stat-label">Students</div>
             </div>
+
             <div class="stat">
                 <div class="stat-number" id="stat2">0</div>
                 <div class="stat-label">Services listed</div>
             </div>
+
             <div class="stat">
                 <div class="stat-number" id="stat3">0</div>
                 <div class="stat-label">Universities</div>
             </div>
         </div>
     </div>
+
     <div class="hero-image">
-        <img src="assets/welcome.jpeg" alt="Students collaborating" onerror="this.src='https://placehold.co/500x400/1a1a1a/f97316?text=Campus+Life'">
+        <img src="assets/welcome.jpeg"
+             alt="Students collaborating"
+             onerror="this.src='https://placehold.co/500x400/1a1a1a/f97316?text=Campus+Life'">
     </div>
+
 </section>
 
-<!-- About Section -->
+<!-- ================= ABOUT ================= -->
 <section class="about-section" id="aboutSection">
     <h2>About <span>CampusConnect</span></h2>
+
     <div class="about-content">
-        <p>CampusConnect is South Africa's premier student marketplace, designed to connect talented students with opportunities and services right on their campus.</p>
-        <p>Whether you're looking to hire a tutor, find a designer, or sell your own skills, we provide a safe, trusted platform built specifically for students by students.</p>
-        
+        <p>
+            CampusConnect is South Africa's premier student marketplace,
+            designed to connect talented students with opportunities and services
+            right on their campus.
+        </p>
+
+        <p>
+            Whether you're looking to hire a tutor, find a designer, or sell your own skills,
+            we provide a safe, trusted platform built specifically for students by students.
+        </p>
+
         <div class="features-grid">
             <div class="feature-item">
                 <i class="fas fa-shield-alt"></i>
                 <h4>Safe & Secure</h4>
                 <p>Verified student profiles and secure payments</p>
             </div>
+
             <div class="feature-item">
                 <i class="fas fa-bolt"></i>
                 <h4>Fast & Easy</h4>
                 <p>Quick setup and instant connections</p>
             </div>
+
             <div class="feature-item">
                 <i class="fas fa-handshake"></i>
                 <h4>Trusted Community</h4>
@@ -101,20 +144,23 @@
     </div>
 </section>
 
-<!-- How It Works Section -->
+<!-- ================= HOW IT WORKS ================= -->
 <section class="howitworks-section" id="howItWorksSection">
     <h2>How It <span>Works</span></h2>
+
     <div class="steps-grid">
         <div class="step-item">
             <div class="step-number">1</div>
             <h4>Create Account</h4>
             <p>Sign up for free and set up your student profile</p>
         </div>
+
         <div class="step-item">
             <div class="step-number">2</div>
             <h4>Choose Your Path</h4>
             <p>Decide to hire talent or offer your services</p>
         </div>
+
         <div class="step-item">
             <div class="step-number">3</div>
             <h4>Connect & Earn</h4>
@@ -123,26 +169,35 @@
     </div>
 </section>
 
-<!-- Testimonial Section -->
+<!-- ================= TESTIMONIAL ================= -->
 <section class="testimonial" id="testimonialSection">
+
     <div class="testimonial-icon">
         <i class="fas fa-quote-right"></i>
     </div>
-    <p id="testimonialText">“I made R4 500 in my first month selling design work on CampusConnect. It changed how I pay for res.”</p>
+
+    <p id="testimonialText">
+        “I made R4 500 in my first month selling design work on CampusConnect. It changed how I pay for res.”
+    </p>
+
     <h4 id="testimonialName">Thabo Mokoena</h4>
     <span id="testimonialTitle">Graphic Design, UJ • Verified Seller</span>
+
     <div class="testimonial-nav">
         <button class="testimonial-prev" id="prevTestimonial">←</button>
         <button class="testimonial-next" id="nextTestimonial">→</button>
     </div>
+
 </section>
 
-<!-- Get Started Cards -->
+<!-- ================= CTA ================= -->
 <section class="cta-section" id="getStartedSection">
+
     <h2>Ready to get started?</h2>
     <p>Choose your path — start earning or find what you need.</p>
-    
+
     <div class="cards-container">
+
         <div class="card" id="seekServiceCard">
             <div class="card-icon">
                 <i class="fas fa-search"></i>
@@ -151,6 +206,7 @@
             <p>Find a tutor, designer, developer, baker, or any campus service you need.</p>
             <button class="card-btn" id="seekServiceBtn">Find a service →</button>
         </div>
+
         <div class="card" id="offerSkillsCard">
             <div class="card-icon">
                 <i class="fas fa-chart-line"></i>
@@ -159,19 +215,23 @@
             <p>List your services, set your rates, and earn from fellow students.</p>
             <button class="card-btn" id="offerSkillsBtn">Start selling →</button>
         </div>
+
     </div>
 </section>
 
-<!-- Login Link -->
+<!-- ================= LOGIN LINK ================= -->
 <div class="login-link">
-    Already have an account? <a href="pages/login.html" id="loginLink">Log in →</a>
+    Already have an account?
+    <a href="pages/login.html" id="loginLink">Log in →</a>
 </div>
 
-<!-- Footer -->
+<!--  FOOTER -->
 <footer class="footer">
     <p>&copy; 2024 CampusConnect. South Africa's student marketplace.</p>
 </footer>
 
+<!-- JS -->
 <script src="js/index.js"></script>
+
 </body>
 </html>

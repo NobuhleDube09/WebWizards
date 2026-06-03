@@ -1,146 +1,195 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  // ===== NAVIGATION & UI ELEMENTS =====
-  
-  // Mobile menu toggle
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  
-  if (mobileMenuBtn && mobileMenu) {
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
+document.addEventListener('DOMContentLoaded', () => {
+
+  /* =========================
+     THEME TOGGLE (IMPROVED)
+  ========================= */
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+
+  const savedTheme = localStorage.getItem('cc_theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+
+  const updateThemeIcon = () => {
+    if (!themeToggleBtn) return;
+
+    const theme = document.documentElement.getAttribute('data-theme');
+    themeToggleBtn.innerHTML =
+      theme === 'dark'
+        ? '<i class="fas fa-sun"></i>'
+        : '<i class="fas fa-moon"></i>';
+  };
+
+  updateThemeIcon();
+
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('cc_theme', next);
+
+      updateThemeIcon();
     });
   }
-  
-  // ===== BUTTON HANDLERS =====
-  
-  // Login buttons
+
+  /* =========================
+     MOBILE MENU
+  ========================= */
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.style.display === 'flex';
+      mobileMenu.style.display = isOpen ? 'none' : 'flex';
+    });
+  }
+
+  /* =========================
+     LOGIN HANDLERS (CLEANED)
+  ========================= */
   const loginBtn = document.getElementById('loginBtn');
   const mobileLoginBtn = document.getElementById('mobileLoginBtn');
   const loginLink = document.getElementById('loginLink');
-  
-  const handleLoginRedirect = () => {
+
+  const goToLogin = () => {
     window.location.href = '/pages/login.html';
   };
-  
-  if (loginBtn) loginBtn.addEventListener('click', handleLoginRedirect);
-  if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', handleLoginRedirect);
+
+  if (loginBtn) loginBtn.addEventListener('click', goToLogin);
+  if (mobileLoginBtn) mobileLoginBtn.addEventListener('click', goToLogin);
+
   if (loginLink) {
     loginLink.addEventListener('click', (e) => {
       e.preventDefault();
-      window.location.href = '/pages/login.html';
+      goToLogin();
     });
   }
-  
-  // ===== GET STARTED CARDS (Redirect to get-started page with role parameter) =====
+
+  /* =========================
+     GET STARTED CARDS
+  ========================= */
   const seekServiceBtn = document.getElementById('seekServiceBtn');
   const offerSkillsBtn = document.getElementById('offerSkillsBtn');
   const seekServiceCard = document.getElementById('seekServiceCard');
   const offerSkillsCard = document.getElementById('offerSkillsCard');
-  
-  // Seek for a Service - redirect to get-started page with role=buy
-  const handleSeekService = () => {
+
+  const goSeekService = () => {
     window.location.href = '/pages/get-started.html?role=buy';
   };
-  
-  // Provide a Service - redirect to get-started page with role=sell
-  const handleProvideService = () => {
+
+  const goProvideService = () => {
     window.location.href = '/pages/get-started.html?role=sell';
   };
-  
+
   if (seekServiceBtn) {
-    seekServiceBtn.addEventListener('click', handleSeekService);
+    seekServiceBtn.addEventListener('click', goSeekService);
   }
-  
-  // Also make the whole card clickable
-  if (seekServiceCard) {
-    seekServiceCard.addEventListener('click', (e) => {
-      // Don't trigger if the button was clicked (prevents double)
-      if (e.target !== seekServiceBtn && !seekServiceBtn.contains(e.target)) {
-        handleSeekService();
-      }
-    });
-    seekServiceCard.style.cursor = 'pointer';
-  }
-  
+
   if (offerSkillsBtn) {
-    offerSkillsBtn.addEventListener('click', handleProvideService);
+    offerSkillsBtn.addEventListener('click', goProvideService);
   }
-  
-  // Also make the whole card clickable
-  if (offerSkillsCard) {
-    offerSkillsCard.addEventListener('click', (e) => {
-      if (e.target !== offerSkillsBtn && !offerSkillsBtn.contains(e.target)) {
-        handleProvideService();
+
+  if (seekServiceCard) {
+    seekServiceCard.style.cursor = 'pointer';
+
+    seekServiceCard.addEventListener('click', (e) => {
+      if (!seekServiceBtn.contains(e.target)) {
+        goSeekService();
       }
     });
-    offerSkillsCard.style.cursor = 'pointer';
   }
-  
-  // ===== NAVIGATION LINKS (Smooth Scroll) =====
+
+  if (offerSkillsCard) {
+    offerSkillsCard.style.cursor = 'pointer';
+
+    offerSkillsCard.addEventListener('click', (e) => {
+      if (!offerSkillsBtn.contains(e.target)) {
+        goProvideService();
+      }
+    });
+  }
+
+  /* =========================
+     NAVIGATION SCROLL
+  ========================= */
   const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
+
+  const sectionMap = {
+    about: 'aboutSection',
+    'how-it-works': 'howItWorksSection',
+    stories: 'testimonialSection'
+  };
+
   navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
+
       const page = link.dataset.page;
-      const sectionMap = {
-        'about': 'aboutSection',
-        'how-it-works': 'howItWorksSection',
-        'stories': 'testimonialSection'
-      };
-      
       const sectionId = sectionMap[page];
-      if (sectionId) {
-        const section = document.getElementById(sectionId);
-        if (section) {
-          section.scrollIntoView({ behavior: 'smooth' });
-          // Close mobile menu if open
-          if (mobileMenu && mobileMenu.style.display === 'flex') {
-            mobileMenu.style.display = 'none';
-          }
+
+      if (!sectionId) return;
+
+      const section = document.getElementById(sectionId);
+
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+
+        // close mobile menu
+        if (mobileMenu) {
+          mobileMenu.style.display = 'none';
         }
       }
     });
   });
-  
-  // ===== STATS COUNTER ANIMATION =====
-  const statNumbers = [
-    { element: document.getElementById('stat1'), target: 15000, suffix: '+' },
-    { element: document.getElementById('stat2'), target: 5000, suffix: '+' },
-    { element: document.getElementById('stat3'), target: 25, suffix: '+' }
+
+  /* =========================
+     STATS ANIMATION (OPTIMISED)
+  ========================= */
+  const stats = [
+    { el: document.getElementById('stat1'), target: 15000, suffix: '+' },
+    { el: document.getElementById('stat2'), target: 5000, suffix: '+' },
+    { el: document.getElementById('stat3'), target: 25, suffix: '+' }
   ];
-  
-  const animateNumbers = () => {
-    statNumbers.forEach(stat => {
-      if (!stat.element) return;
-      let current = 0;
-      const increment = Math.ceil(stat.target / 50);
+
+  const animateStats = () => {
+    stats.forEach(stat => {
+      if (!stat.el) return;
+
+      let value = 0;
+      const step = Math.ceil(stat.target / 60);
+
       const timer = setInterval(() => {
-        current += increment;
-        if (current >= stat.target) {
-          stat.element.textContent = stat.target.toLocaleString() + stat.suffix;
+        value += step;
+
+        if (value >= stat.target) {
+          stat.el.textContent = stat.target.toLocaleString() + stat.suffix;
           clearInterval(timer);
         } else {
-          stat.element.textContent = current.toLocaleString() + stat.suffix;
+          stat.el.textContent = value.toLocaleString() + stat.suffix;
         }
-      }, 30);
+      }, 25);
     });
   };
-  
-  // Trigger animation when stats come into view
+
   const statsSection = document.querySelector('.stats');
+
   if (statsSection) {
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          animateNumbers();
-          observer.disconnect();
+          animateStats();
+          obs.disconnect();
         }
       });
     }, { threshold: 0.5 });
+
     observer.observe(statsSection);
   }
-  
-  // ===== TESTIMONIAL CAROUSEL =====
+
+  /* =========================
+     TESTIMONIAL CAROUSEL
+  ========================= */
   const testimonials = [
     {
       text: "I made R4 500 in my first month selling design work on CampusConnect. It changed how I pay for res.",
@@ -163,39 +212,48 @@ document.addEventListener('DOMContentLoaded', async () => {
       title: "Economics, UCT • Verified Buyer"
     }
   ];
-  
-  let currentTestimonial = 0;
+
+  let index = 0;
+
   const testimonialText = document.getElementById('testimonialText');
   const testimonialName = document.getElementById('testimonialName');
   const testimonialTitle = document.getElementById('testimonialTitle');
+
+  const updateTestimonial = () => {
+    if (!testimonialText || !testimonialName || !testimonialTitle) return;
+
+    const t = testimonials[index];
+
+    testimonialText.textContent = `“${t.text}”`;
+    testimonialName.textContent = t.name;
+    testimonialTitle.textContent = t.title;
+  };
+
   const prevBtn = document.getElementById('prevTestimonial');
   const nextBtn = document.getElementById('nextTestimonial');
-  
-  const updateTestimonial = () => {
-    if (testimonialText && testimonialName && testimonialTitle) {
-      testimonialText.textContent = `“${testimonials[currentTestimonial].text}”`;
-      testimonialName.textContent = testimonials[currentTestimonial].name;
-      testimonialTitle.textContent = testimonials[currentTestimonial].title;
-    }
-  };
-  
-  if (prevBtn && nextBtn) {
+
+  if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-      updateTestimonial();
-    });
-    
-    nextBtn.addEventListener('click', () => {
-      currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+      index = (index - 1 + testimonials.length) % testimonials.length;
       updateTestimonial();
     });
   }
-  
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      index = (index + 1) % testimonials.length;
+      updateTestimonial();
+    });
+  }
+
   updateTestimonial();
-  
-  console.log('✅ CampusConnect homepage loaded successfully!');
-  console.log('Button redirects:', {
-    'Seek Service': '/pages/get-started.html?role=buy',
-    'Provide Service': '/pages/get-started.html?role=sell'
+
+  /* =========================
+     DEBUG LOGS
+  ========================= */
+  console.log('✅ CampusConnect loaded successfully');
+  console.log({
+    seekService: '/pages/get-started.html?role=buy',
+    provideService: '/pages/get-started.html?role=sell'
   });
 });

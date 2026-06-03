@@ -621,3 +621,25 @@
                 gap: 15px;
             }
         }
+
+
+        .theme-toggle {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-left: 12px;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.05);
+}
+
+/* Light mode button fix */
+html[data-theme="light"] .theme-toggle {
+  color: #0f172a;
+  border: 1px solid #e2e8f0;
+}
