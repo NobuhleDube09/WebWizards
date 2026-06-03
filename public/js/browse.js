@@ -123,14 +123,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.sbClient
       .channel('public:listings-browse')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'listings' }, () => {
-        // If no active search/filter, reload silently; otherwise show banner
-        const hasFilter = searchInput.value.trim() || activeCategory;
-        if (hasFilter) {
-          showNewListingBanner();
-        } else {
-          dismissBanner();
-          load();
-        }
+        dismissBanner();
+        load();
       })
       .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'listings' }, () => {
         dismissBanner();

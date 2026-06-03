@@ -447,6 +447,128 @@ textarea::placeholder {
   to { transform: rotate(360deg); }
 }
 
+/* ── LIGHT MODE BRIDGES FOR PAGE-SCOPED STYLESHEETS ───────────────────── */
+html:not([data-theme="dark"]) body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .lp-card,
+html:not([data-theme="dark"]) .lp-right,
+html:not([data-theme="dark"]) .lp-testimonial,
+html:not([data-theme="dark"]) .v-state,
+html:not([data-theme="dark"]) .lf-card,
+html:not([data-theme="dark"]) .i-conv-panel,
+html:not([data-theme="dark"]) .chat-thread,
+html:not([data-theme="dark"]) .chat-thread-header,
+html:not([data-theme="dark"]) .chat-input-row,
+html:not([data-theme="dark"]) .chat-empty,
+html:not([data-theme="dark"]) .a-card,
+html:not([data-theme="dark"]) .a-stat-card,
+html:not([data-theme="dark"]) .a-modal,
+html:not([data-theme="dark"]) .a-bulk-bar,
+html:not([data-theme="dark"]) .a-empty,
+html:not([data-theme="dark"]) .a-table-wrap {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html:not([data-theme="dark"]) .lf-main,
+html:not([data-theme="dark"]) .i-main,
+html:not([data-theme="dark"]) .p-main,
+html:not([data-theme="dark"]) .l-main,
+html:not([data-theme="dark"]) .a-main {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .lf-header,
+html:not([data-theme="dark"]) .p-header,
+html:not([data-theme="dark"]) .l-header,
+html:not([data-theme="dark"]) .a-page-header,
+html:not([data-theme="dark"]) .i-conv-header {
+  background: var(--bg-card);
+  border-color: var(--border);
+}
+
+html:not([data-theme="dark"]) .lp-form-title,
+html:not([data-theme="dark"]) .v-state h2,
+html:not([data-theme="dark"]) .chat-thread-name,
+html:not([data-theme="dark"]) .chat-item-name,
+html:not([data-theme="dark"]) .a-card-title,
+html:not([data-theme="dark"]) .a-modal-header h3,
+html:not([data-theme="dark"]) .a-sf-name,
+html:not([data-theme="dark"]) .l-header p strong,
+html:not([data-theme="dark"]) .p-header h1 {
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .lp-form-sub,
+html:not([data-theme="dark"]) .lp-back,
+html:not([data-theme="dark"]) .lp-label,
+html:not([data-theme="dark"]) .lp-register,
+html:not([data-theme="dark"]) .lp-links a,
+html:not([data-theme="dark"]) .lp-forgot,
+html:not([data-theme="dark"]) .v-state p,
+html:not([data-theme="dark"]) .lf-header p,
+html:not([data-theme="dark"]) .i-search-icon,
+html:not([data-theme="dark"]) .chat-item-preview,
+html:not([data-theme="dark"]) .a-card-sub,
+html:not([data-theme="dark"]) .a-sidebar-label,
+html:not([data-theme="dark"]) .a-activity-time,
+html:not([data-theme="dark"]) .a-activity-text,
+html:not([data-theme="dark"]) .a-empty,
+html:not([data-theme="dark"]) .p-scroll,
+html:not([data-theme="dark"]) .l-header p {
+  color: var(--text-secondary);
+}
+
+html:not([data-theme="dark"]) .lp-input,
+html:not([data-theme="dark"]) .a-search input,
+html:not([data-theme="dark"]) .a-form-input,
+html:not([data-theme="dark"]) .a-form-select,
+html:not([data-theme="dark"]) #chatSearch,
+html:not([data-theme="dark"]) .chat-input-row input {
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html:not([data-theme="dark"]) .lp-input::placeholder,
+html:not([data-theme="dark"]) .a-search input::placeholder,
+html:not([data-theme="dark"]) .chat-input-row input::placeholder {
+  color: var(--text-muted);
+}
+
+html:not([data-theme="dark"]) .a-filter-pill,
+html:not([data-theme="dark"]) .a-btn-ghost {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+html:not([data-theme="dark"]) .a-table th,
+html:not([data-theme="dark"]) .a-table td {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html:not([data-theme="dark"]) .chat-item:hover,
+html:not([data-theme="dark"]) .a-table tbody tr:hover,
+html:not([data-theme="dark"]) .a-filter-pill:hover,
+html:not([data-theme="dark"]) .a-btn-ghost:hover {
+  background: var(--bg-card-hover);
+}
+
+html:not([data-theme="dark"]) .chat-empty h3,
+html:not([data-theme="dark"]) .a-empty h3,
+html:not([data-theme="dark"]) .a-page-header h1,
+html:not([data-theme="dark"]) .l-header h1,
+html:not([data-theme="dark"]) .lf-header h1 {
+  color: var(--text-primary);
+}
+
 /* ── RESPONSIVE ADJUSTMENTS ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .b-sidebar,

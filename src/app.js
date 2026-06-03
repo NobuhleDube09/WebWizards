@@ -106,7 +106,7 @@ app.get('/api/health', (_req, res) => {
   res.json({ ok: true, service: 'CampusConnect API v2' });
 });
 
-// ── Auth: Register — creates account, generates OTP and sends it via SMTP ───
+// ── Auth: Register — creates account/profile; OTP is sent via Edge Function ──
 app.post('/api/auth/register', async (req, res) => {
   try {
     const { email: emailAddr, password, name, faculty, year_of_study, account_type } = req.body;
@@ -145,11 +145,7 @@ app.post('/api/auth/register', async (req, res) => {
       return res.status(409).json({ error: msg });
     }
 
-    // Generate 6-digit OTP valid for 15 minutes
-    const otp = String(Math.floor(100000 + Math.random() * 900000));
-    const otpExpiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
-
-    // Create profile row with OTP stored
+    // Create profile row. OTP lifecycle is handled by the send-otp Edge Function.
     const { error: profileError } = await supabase.from('users').insert({
       id: authData.user.id,
       email: lowerEmail,
@@ -158,8 +154,6 @@ app.post('/api/auth/register', async (req, res) => {
       year_of_study: Number(year_of_study),
       account_type: role,
       is_verified: false,
-      otp_code: otp,
-      otp_expires_at: otpExpiresAt,
     });
 
     if (profileError) {
@@ -167,18 +161,7 @@ app.post('/api/auth/register', async (req, res) => {
       return res.status(500).json({ error: profileError.message });
     }
 
-    // Send OTP email — await so we can report failure to the frontend
-    try {
-      await email.sendOTPEmail({ email: lowerEmail, name }, otp);
-    } catch (mailErr) {
-      // Roll back account creation so the user can retry cleanly
-      await supabase.from('users').delete().eq('id', authData.user.id);
-      await supabase.auth.admin.deleteUser(authData.user.id);
-      console.error('[register] email send failed:', mailErr.message);
-      return res.status(500).json({ error: 'Account created but verification email failed. Please try again.' });
-    }
-
-    return res.status(201).json({ message: 'Account created! Check your email for your verification code.' });
+    return res.status(201).json({ message: 'Account created! Request an OTP to verify your email.' });
   } catch (err) {
     console.error('[register]', err);
     return res.status(500).json({ error: 'Registration failed. Please try again.' });
@@ -368,7 +351,8 @@ app.post('/api/listings', requireAuth, upload.array('images', 3), async (req, re
         turnaround_time,
         availability: availability === 'false' ? false : true,
         images,
-        status: 'pending',
+        // Make newly created listings visible on browse immediately.
+        status: 'approved',
       })
       .select('*')
       .single();
@@ -470,15 +454,22 @@ app.get('/api/listings', async (req, res) => {
   if (category && category !== 'All') query = query.eq('category', category);
   if (delivery) query = query.eq('delivery_method', delivery);
   if (sellerId) query = query.eq('seller_id', sellerId);
-  // Only show approved/featured on public browse; sellers see their own regardless
-  if (!sellerId) query = query.in('status', ['approved', 'featured']);
+  // Public browse includes pending so newly added services appear immediately.
+  if (!sellerId) query = query.in('status', ['approved', 'featured', 'pending']);
   if (minRating) query = query.gte('rating_avg', Number(minRating));
   if (minPrice) query = query.gte('price', Number(minPrice));
   if (maxPrice) query = query.lte('price', Number(maxPrice));
 
-  if (sort === 'top-rated') query = query.order('rating_avg', { ascending: false });
-  if (sort === 'lowest-price') query = query.order('price', { ascending: true, nullsFirst: false });
-  if (sort === 'newest') query = query.order('created_at', { ascending: false });
+  // Accept both legacy and current sort keys from the frontend.
+  if (sort === 'top-rated' || sort === 'rating') {
+    query = query.order('rating_avg', { ascending: false });
+  } else if (sort === 'lowest-price' || sort === 'price_asc') {
+    query = query.order('price', { ascending: true, nullsFirst: false });
+  } else if (sort === 'highest-price' || sort === 'price_desc') {
+    query = query.order('price', { ascending: false, nullsFirst: true });
+  } else {
+    query = query.order('created_at', { ascending: false });
+  }
 
   const { data, error } = await query;
   if (error) return res.status(400).json({ error: error.message });

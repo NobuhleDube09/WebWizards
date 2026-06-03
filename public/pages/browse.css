@@ -491,3 +491,55 @@
         width: 100%;
       }
     }
+
+    /* Theme bridge: let the shared theme stylesheet control light/dark output. */
+    html:not([data-theme="dark"]) body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+    }
+
+    html:not([data-theme="dark"]) .b-sidebar,
+    html:not([data-theme="dark"]) .b-main-header,
+    html:not([data-theme="dark"]) .b-filter-card,
+    html:not([data-theme="dark"]) .listing-card,
+    html:not([data-theme="dark"]) .b-empty {
+      background: var(--bg-card);
+      border-color: var(--border);
+    }
+
+    html:not([data-theme="dark"]) .b-main {
+      background: var(--bg-elevated);
+    }
+
+    html:not([data-theme="dark"]) .b-nav-item,
+    html:not([data-theme="dark"]) .b-sidebar-section,
+    html:not([data-theme="dark"]) .b-results-count,
+    html:not([data-theme="dark"]) .listing-desc,
+    html:not([data-theme="dark"]) .listing-seller {
+      color: var(--text-secondary);
+    }
+
+    html:not([data-theme="dark"]) .b-header-left h1,
+    html:not([data-theme="dark"]) .listing-title,
+    html:not([data-theme="dark"]) .b-empty h3 {
+      color: var(--text-primary);
+      background: none;
+      -webkit-background-clip: initial;
+      background-clip: initial;
+    }
+
+    html:not([data-theme="dark"]) .b-filter-search input,
+    html:not([data-theme="dark"]) .b-filter-sort,
+    html:not([data-theme="dark"]) .b-cat-pill {
+      background: var(--bg-input);
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+
+    html:not([data-theme="dark"]) .b-filter-search-icon {
+      color: var(--text-muted);
+    }
+
+    html:not([data-theme="dark"]) .b-empty p {
+      color: var(--text-secondary);
+    }

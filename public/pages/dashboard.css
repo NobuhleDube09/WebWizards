@@ -1204,6 +1204,7 @@ body {
   color: white;
   line-height: 1.3;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -1576,4 +1577,105 @@ select:focus {
 button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Theme bridge: this page was authored with hardcoded dark colors.
+   These overrides let the shared theme tokens drive the final appearance. */
+html:not([data-theme="dark"]) body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .d-sidebar,
+html:not([data-theme="dark"]) .d-main,
+html:not([data-theme="dark"]) .d-right,
+html:not([data-theme="dark"]) .d-main-header,
+html:not([data-theme="dark"]) .d-profile-card,
+html:not([data-theme="dark"]) .d-stat-card,
+html:not([data-theme="dark"]) .order-card,
+html:not([data-theme="dark"]) .review-card,
+html:not([data-theme="dark"]) .dl-card,
+html:not([data-theme="dark"]) .card,
+html:not([data-theme="dark"]) .tab-pill,
+html:not([data-theme="dark"]) .d-sidebar-footer,
+html:not([data-theme="dark"]) .d-right-header,
+html:not([data-theme="dark"]) .dm-input-row,
+html:not([data-theme="dark"]) .dl-empty {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html:not([data-theme="dark"]) .d-main {
+  background: var(--bg-elevated);
+}
+
+html:not([data-theme="dark"]) .dash-nav-item,
+html:not([data-theme="dark"]) .d-sidebar-section-label,
+html:not([data-theme="dark"]) .pc-meta,
+html:not([data-theme="dark"]) .pc-stat-lbl,
+html:not([data-theme="dark"]) .sc-label,
+html:not([data-theme="dark"]) .dm-conv-preview,
+html:not([data-theme="dark"]) .review-body,
+html:not([data-theme="dark"]) .dl-card-meta,
+html:not([data-theme="dark"]) .form-label,
+html:not([data-theme="dark"]) .dl-empty p {
+  color: var(--text-secondary);
+}
+
+html:not([data-theme="dark"]) .sf-name,
+html:not([data-theme="dark"]) .pc-name,
+html:not([data-theme="dark"]) .d-section-header h3,
+html:not([data-theme="dark"]) .d-right-header h3,
+html:not([data-theme="dark"]) .dm-thread-name,
+html:not([data-theme="dark"]) .dm-conv-name,
+html:not([data-theme="dark"]) .dl-card-title,
+html:not([data-theme="dark"]) .sc-value,
+html:not([data-theme="dark"]) .dl-empty h3 {
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .dm-bubble.other {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+}
+
+html:not([data-theme="dark"]) .dm-input-row input,
+html:not([data-theme="dark"]) input[type="text"],
+html:not([data-theme="dark"]) input[type="email"],
+html:not([data-theme="dark"]) textarea,
+html:not([data-theme="dark"]) select {
+  background: var(--bg-input);
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+
+html:not([data-theme="dark"]) .btn-ghost,
+html:not([data-theme="dark"]) .d-btn.ghost {
+  background: var(--bg-elevated);
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+
+html:not([data-theme="dark"]) .d-right-refresh,
+html:not([data-theme="dark"]) .loading-wrap {
+  color: var(--text-secondary);
+}
+
+html[data-theme="dark"] .d-sidebar,
+html[data-theme="dark"] .d-main,
+html[data-theme="dark"] .d-right,
+html[data-theme="dark"] .d-main-header,
+html[data-theme="dark"] .d-profile-card,
+html[data-theme="dark"] .d-stat-card,
+html[data-theme="dark"] .order-card,
+html[data-theme="dark"] .review-card,
+html[data-theme="dark"] .dl-card,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .tab-pill,
+html[data-theme="dark"] .d-sidebar-footer,
+html[data-theme="dark"] .d-right-header,
+html[data-theme="dark"] .dm-input-row,
+html[data-theme="dark"] .dl-empty {
+  border-color: var(--border);
 }
