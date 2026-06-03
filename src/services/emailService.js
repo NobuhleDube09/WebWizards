@@ -65,14 +65,21 @@ const baseHtml = (title, bodyContent) => `
 
 // ── Fire-and-forget helper ────────────────────────────────────────────────────
 const send = (to, subject, html) => {
-  resend.emails.send({ from: FROM, to, subject, html }).catch((err) => {
-    console.error(`[email] Failed to send "${subject}" to ${to}:`, err.message);
-  });
+  try {
+    requireResend();
+    resend.emails.send({ from: FROM, to, subject, html }).catch((err) => {
+      console.error(`[email] Failed to send "${subject}" to ${to}:`, err.message);
+    });
+  } catch (err) {
+    console.error(`[email] Cannot send "${subject}" to ${to}:`, err.message);
+  }
 };
 
 // ── Awaitable send (for critical emails like OTP) ─────────────────────────────
-const sendAwait = (to, subject, html) =>
-  resend.emails.send({ from: FROM, to, subject, html });
+const sendAwait = (to, subject, html) => {
+  requireResend();
+  return resend.emails.send({ from: FROM, to, subject, html });
+};
 
 // ── 1. Welcome / Registration ─────────────────────────────────────────────────
 exports.sendWelcomeEmail = (user) => {

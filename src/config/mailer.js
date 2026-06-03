@@ -1,5 +1,16 @@
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resendApiKey = process.env.RESEND_API_KEY;
+let resend = null;
 
-module.exports = { resend };
+if (resendApiKey) {
+  resend = new Resend(resendApiKey);
+}
+
+const requireResend = () => {
+  if (!resend) {
+    throw new Error('Missing RESEND_API_KEY in environment variables.');
+  }
+};
+
+module.exports = { resend, requireResend };
