@@ -1,20 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // OTP verification is handled inline in get-started.html (step 3).
-  // This page is reached only if someone navigates here directly.
-  // Redirect them back to get-started so they can complete the OTP flow.
   const email = localStorage.getItem('cc_pending_email');
-  const dest  = email
-    ? `/pages/get-started.html?email=${encodeURIComponent(email)}`
+  const verifyState = document.getElementById('verifyState');
+  const successState = document.getElementById('successState');
+  const resendBtn = document.getElementById('resendBtn');
+  const backBtn = document.querySelector('.lp-back');
+  
+  if (email && verifyState) {
+    const messagePara = verifyState.querySelector('p');
+    if (messagePara) {
+      messagePara.innerHTML = `We sent a 6-digit code to <strong>${email}</strong>. Click "Back to sign up" when you have it.`;
+    }
+  }
+  
+  if (verifyState) verifyState.style.display = '';
+  if (successState) successState.style.display = 'none';
+  
+  const getRedirectUrl = () => email 
+    ? `/pages/get-started.html?step=verify&email=${encodeURIComponent(email)}`
     : '/pages/get-started.html';
-
-  // Show the verifyState card briefly, then redirect
-  document.getElementById('verifyState')?.style && (document.getElementById('verifyState').style.display = '');
-  document.getElementById('successState') && (document.getElementById('successState').style.display = 'none');
-
-  document.getElementById('resendBtn')?.addEventListener('click', () => {
-    window.location.href = dest;
-  });
-
-  // Auto-redirect after 4 s if they don't click
-  setTimeout(() => { window.location.replace(dest); }, 4000);
+  
+  if (backBtn) {
+    backBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = getRedirectUrl();
+    });
+  }
+  
+  if (resendBtn) {
+    resendBtn.addEventListener('click', () => {
+      window.location.href = getRedirectUrl();
+    });
+  }
+  
+  // NO AUTO-REDIRECT - Page stays visible until user clicks button
 });

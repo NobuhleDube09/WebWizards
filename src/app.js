@@ -919,7 +919,7 @@ app.get('/api/admin/stats', requireAuth, requireAdmin, async (_req, res) => {
     { count: totalUsers },
     { count: totalListings },
     { count: pendingListings },
-    { count: openReports },
+    { count: eports },
     { count: totalOrders },
   ] = await Promise.all([
     supabase.from('users').select('*', { count: 'exact', head: true }),
@@ -936,7 +936,7 @@ app.get('/api/admin/stats', requireAuth, requireAdmin, async (_req, res) => {
   const { count: newSignups } = await supabase
     .from('users').select('*', { count: 'exact', head: true }).gte('created_at', sevenDaysAgo);
 
-  return res.json({ totalUsers, totalListings, pendingListings, openReports, totalOrders,
+  return res.json({ totalUsers, totalListings, pendingListings, eports, totalOrders,
     totalEarnings: Number(totalEarnings.toFixed(2)), newSignups });
 });
 

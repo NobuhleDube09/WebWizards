@@ -9,7 +9,9 @@ const getToken = () => {
     if (!raw) return null;
     const s = JSON.parse(raw);
     return s?.access_token ?? null;
-  } catch { return null; }
+  } catch { 
+    return null; 
+  }
 };
 
 const api = {
@@ -54,9 +56,74 @@ const api = {
       body: formData,
     });
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) { const e = new Error(data.error || `HTTP ${res.status}`); e.status = res.status; throw e; }
+    if (!res.ok) { 
+      const e = new Error(data.error || `HTTP ${res.status}`); 
+      e.status = res.status; 
+      throw e; 
+    }
     return data;
   },
+
+  // ========== DOWNLOAD/EXPORT FUNCTIONS ==========
+  
+  async downloadReport(type, format = 'csv') {
+    try {
+      const token = getToken();
+      
+      const response = await fetch(`/api/reports/export?type=${type}&format=${format}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': token ? `Bearer ${token}` : '',
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Download failed');
+      }
+      
+      // Handle file download
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      
+      // Get filename from Content-Disposition header or create one
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let filename = `${type}_export_${Date.now()}.${format}`;
+      if (contentDisposition) {
+        const match = contentDisposition.match(/filename=(.+)/);
+        if (match) filename = match[1];
+      }
+      
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+      
+      return { success: true, message: 'Download started' };
+      
+    } catch (error) {
+      console.error('Download error:', error);
+      throw error;
+    }
+  },
+  
+  // Specific export functions
+  async exportListings() {
+    return this.downloadReport('listings', 'csv');
+  },
+  
+  async exportOrders() {
+    return this.downloadReport('orders', 'csv');
+  },
+  
+  async exportEarnings() {
+    return this.downloadReport('earnings', 'csv');
+  }
 };
 
+// Make api available globally
 window.api = api;
