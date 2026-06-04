@@ -244,6 +244,87 @@ const _syncThemeFab = () => {
 // Apply saved theme as early as possible (reduces flash when script loads)
 applyTheme(getTheme());
 
+/* ── Prompt and Confirm Modal Functions ─────────────────────────────────────── */
+
+// Show a confirm dialog (yes/no)
+const showConfirm = (message, options = {}) => {
+    return new Promise((resolve) => {
+        const confirmText = options.confirmText || 'Confirm';
+        const isDanger = options.danger || false;
+        
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:10000;display:flex;align-items:center;justify-content:center';
+        
+        const modal = document.createElement('div');
+        modal.style.cssText = 'background:white;border-radius:16px;padding:24px;max-width:400px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+        modal.innerHTML = `
+            <p style="margin-bottom:24px;font-size:16px;color:#1f2937">${message}</p>
+            <div style="display:flex;gap:12px;justify-content:flex-end">
+                <button id="cancelBtn" style="padding:8px 20px;border-radius:8px;border:1px solid #e5e7eb;background:white;cursor:pointer">Cancel</button>
+                <button id="confirmBtn" style="padding:8px 20px;border-radius:8px;border:none;background:${isDanger ? '#ef4444' : '#00c797'};color:white;cursor:pointer">${confirmText}</button>
+            </div>
+        `;
+        
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+        
+        const close = (result) => {
+            overlay.remove();
+            resolve(result);
+        };
+        
+        modal.querySelector('#confirmBtn').onclick = () => close(true);
+        modal.querySelector('#cancelBtn').onclick = () => close(false);
+        overlay.onclick = (e) => { if (e.target === overlay) close(false); };
+    });
+};
+
+// Show a prompt dialog with input fields
+const showPrompt = (fields) => {
+    return new Promise((resolve) => {
+        const overlay = document.createElement('div');
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:10000;display:flex;align-items:center;justify-content:center';
+        
+        const inputsHtml = fields.map(f => `
+            <div style="margin-bottom:16px">
+                <label style="display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:#4b5563">${f.label}</label>
+                <input type="${f.type || 'text'}" id="prompt_${f.id}" placeholder="${f.placeholder || ''}" style="width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:8px;font-size:14px">
+            </div>
+        `).join('');
+        
+        const modal = document.createElement('div');
+        modal.style.cssText = 'background:white;border-radius:16px;padding:24px;max-width:450px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3)';
+        modal.innerHTML = `
+            <h3 style="margin-bottom:20px;font-size:18px;font-weight:700;color:#111827">${fields[0]?.label === 'Agreed scope' ? 'Accept Order' : 'Enter Details'}</h3>
+            ${inputsHtml}
+            <div style="display:flex;gap:12px;justify-content:flex-end;margin-top:8px">
+                <button id="promptCancel" style="padding:8px 20px;border-radius:8px;border:1px solid #e5e7eb;background:white;cursor:pointer">Cancel</button>
+                <button id="promptConfirm" style="padding:8px 20px;border-radius:8px;border:none;background:#00c797;color:white;cursor:pointer">Confirm</button>
+            </div>
+        `;
+        
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+        
+        const close = (result) => {
+            overlay.remove();
+            resolve(result);
+        };
+        
+        modal.querySelector('#promptConfirm').onclick = () => {
+            const values = {};
+            fields.forEach(f => {
+                const input = document.getElementById(`prompt_${f.id}`);
+                if (input) values[f.id] = input.value;
+            });
+            close(values);
+        };
+        
+        modal.querySelector('#promptCancel').onclick = () => close(null);
+        overlay.onclick = (e) => { if (e.target === overlay) close(null); };
+    });
+};
+
 /* ── Init on DOM ready ───────────────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   // Sign out immediately if the cached profile is suspended
@@ -270,7 +351,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Export all functions
 window.showToast      = showToast;
+window.showConfirm    = showConfirm;
+window.showPrompt     = showPrompt;
 window.avatarHtml     = avatarHtml;
 window.starsHtml      = starsHtml;
 window.listingCardHtml = listingCardHtml;
